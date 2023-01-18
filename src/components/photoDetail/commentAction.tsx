@@ -1,6 +1,6 @@
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import {Box, ButtonBase, Dialog, List} from "@mui/material";
-import React, {useState} from "react";
+import {useState} from "react";
 import {DeleteConfirm} from "./deleteConfirm";
 import {MenuButton} from "./photoAction";
 import {useHandleGraphQLError} from "../../utils.jsx";

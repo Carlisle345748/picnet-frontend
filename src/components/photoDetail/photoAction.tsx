@@ -3,7 +3,7 @@ import {selectLoggedUserId} from "../loginRegister/loginSlice";
 import {Dialog, IconButton, List, ListItem, ListItemButton, Stack, Typography} from "@mui/material";
 import {FollowButton} from "../button/followButton";
 import {MoreVertOutlined} from "@mui/icons-material";
-import React, {useState} from "react";
+import {useState} from "react";
 import {useHandleGraphQLError} from "../../utils";
 import {DeleteConfirm} from "./deleteConfirm";
 import {TRelayNode} from "../../gql/types";

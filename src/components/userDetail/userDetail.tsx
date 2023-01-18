@@ -1,4 +1,3 @@
-import React from 'react';
 import {Stack} from '@mui/material';
 import {useParams} from 'react-router';
 import BasicInfo from "./basicInfo/basicInfo";

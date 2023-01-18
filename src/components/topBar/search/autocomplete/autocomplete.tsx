@@ -1,5 +1,5 @@
 import {autocomplete} from '@algolia/autocomplete-js';
-import React, {createElement, Fragment, useEffect, useMemo, useRef} from 'react';
+import {createElement, Fragment, useEffect, useMemo, useRef} from 'react';
 import {createRoot} from 'react-dom/client';
 import '@algolia/autocomplete-theme-classic';
 import {Box} from "@mui/material";

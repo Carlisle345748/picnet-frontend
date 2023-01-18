@@ -1,7 +1,6 @@
 import {createLocalStorageRecentSearchesPlugin} from '@algolia/autocomplete-plugin-recent-searches';
 import {setSearch} from "../searchSlice";
 import qs from "qs";
-import React from "react";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
 import {Box} from "@mui/material";

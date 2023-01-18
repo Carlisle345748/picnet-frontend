@@ -1,5 +1,4 @@
 import {alpha, styled} from "@mui/material";
-import React from "react";
 import {Autocomplete} from "./autocomplete/autocomplete";
 
 export const Search = styled("form")(({theme}) => ({

@@ -1,4 +1,3 @@
-import React from "react";
 import {DialogTitle, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography,} from "@mui/material";
 import {Link} from "react-router-dom";
 import {Scrollbars} from "react-custom-scrollbars-2";

@@ -1,5 +1,4 @@
 import {ButtonBase, Stack, Typography} from "@mui/material";
-import React from "react";
 import {SetFollowListModal} from "../types";
 
 export type FollowCountProp = {

@@ -2,7 +2,7 @@ import {Box, Card, CardHeader, CardMedia, Collapse, IconButton, Stack, Typograph
 import {Link as RouterLink} from "react-router-dom";
 import {LikeButton, LikeButtonProp} from "../../button/likeButton";
 import {CommentIcon} from "../../icons/icons";
-import React, {useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {CommentInput} from "../../commentInput/commentInput";
 import {PhotoDetailModal} from "../../photoDetail/photoDetailModal";
 import {getLocationMain, toNow} from "../../../utils.jsx";

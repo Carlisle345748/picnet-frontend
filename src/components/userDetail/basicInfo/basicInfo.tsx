@@ -1,5 +1,5 @@
 import {Box, Dialog, IconButton, Modal, Stack, Typography,} from "@mui/material";
-import React, {useState} from "react";
+import {useState} from "react";
 import FollowList from "./followList";
 import {useSelector} from "react-redux";
 import {selectLoggedUserId} from "../../loginRegister/loginSlice";

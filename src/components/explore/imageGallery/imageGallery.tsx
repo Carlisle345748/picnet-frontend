@@ -1,5 +1,4 @@
 import {Box, BoxProps} from "@mui/material";
-import React from "react"
 
 
 export function Gallery({children}: BoxProps) {

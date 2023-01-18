@@ -2,7 +2,6 @@ import {createQuerySuggestionsPlugin} from "@algolia/autocomplete-plugin-query-s
 import {useAlgolia} from "../../../../../algolia.jsx";
 import {Box} from "@mui/material";
 import {ArrowIcon, SearchIcon} from "../../../../icons/icons";
-import React from "react";
 import {setSearch} from "../searchSlice";
 import qs from "qs";
 import {useNavigate} from "react-router";

@@ -1,6 +1,5 @@
 import {ListItem, ListItemAvatar, ListItemText, Typography,} from "@mui/material";
 import {Link as RouterLink} from "react-router-dom";
-import React from "react";
 import {getLocationMain} from "../../utils";
 import {PhotoAction} from "./photoAction";
 import {ProfileAvatar} from "../avatar/profileAvatar";

@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import {useRef} from "react";
 import {Box, Divider, IconButton, Paper, Stack, Typography, useMediaQuery, useTheme,} from "@mui/material";
 import {CommentIcon} from "../icons/icons";
 import Grid2 from "@mui/material/Unstable_Grid2";

@@ -4,10 +4,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import * as React from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useHandleGraphQLError} from "../../utils";
 import {useCreateUserMutation} from "../../gql/gql";
+import React from "react";
 
 type Input = {
     firstName: string

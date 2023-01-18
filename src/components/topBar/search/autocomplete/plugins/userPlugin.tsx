@@ -4,7 +4,7 @@ import {
     AutocompleteSource,
     getAlgoliaResults
 } from "@algolia/autocomplete-js";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {ProfileAvatar} from "../../../../avatar/profileAvatar";
 import {Box} from "@mui/material";
 import {useNavigate} from "react-router";

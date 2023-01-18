@@ -1,5 +1,4 @@
 import {CardMedia, Stack} from "@mui/material";
-import React from "react";
 
 
 export const Photo = ({photo}: { photo: { url: string } }) => {

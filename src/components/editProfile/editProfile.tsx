@@ -20,6 +20,10 @@ export const EditProfile = function () {
     const {data, error: queryErr} = useGetLoginUserBasicQuery({variables: {id: loggedInUser?.id}});
     const [updateProfile, {error: updateErr}] = useUpdateProfileMutation({
         update(cache, {data}) {
+            if (!data) {
+                console.log("updateProfile mutation receive null data")
+                return
+            }
             const user = data!.updateProfile;
             cache.modify({
                 id: cache.identify(user),

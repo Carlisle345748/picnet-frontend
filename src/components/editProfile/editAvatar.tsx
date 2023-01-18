@@ -52,7 +52,11 @@ export const UploadAvatar = function ({setOpen}: { setOpen: Dispatch<SetStateAct
     const [loading, setLoading] = useState(false);
     const [uploadAvatar, {error}] = useUploadAvatarMutation({
         update(cache, {data}) {
-            const profile = data!.uploadAvatar;
+            if (!data) {
+                console.log("uploadAvatar mutation receive null data")
+                return
+            }
+            const profile = data.uploadAvatar;
             cache.modify({
                 id: cache.identify(profile),
                 fields: {

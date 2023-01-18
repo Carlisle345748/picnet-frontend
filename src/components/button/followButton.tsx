@@ -9,7 +9,7 @@ export type FollowButtonProp = {
             isFollowing: boolean
         }
     },
-    sx: SxProps | undefined
+    sx?: SxProps
 }
 
 export const FollowButton = function ({user, sx}: FollowButtonProp) {

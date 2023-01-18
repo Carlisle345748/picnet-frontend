@@ -43,7 +43,7 @@ export const SignIn = ({setPage}: { setPage: React.Dispatch<React.SetStateAction
 
     const demonLogin = () => {
         setLoading(true);
-        sendLogin({variables: {username: "cuizk", password: "123"}});
+        sendLogin({variables: {username: "cuizk", password: "123"}}).catch(console.log);
     }
 
     return (

@@ -30,7 +30,11 @@ export const CreatPost = () => {
     const {data: userData, error: queryErr} = useGetLoginUserBasicQuery({variables: {id: loggedInUserId}});
     const [upload, {error: uploadErr}] = useUploadPhotoMutation({
         update(cache, {data}) {
-            const photo = data!.uploadPhoto;
+            if (!data) {
+                console.log("uploadPhoto mutation receive null data")
+                return
+            }
+            const photo = data.uploadPhoto;
             const photoRef = cache.writeFragment({
                 data: photo,
                 fragment: PhotoBasicFragmentDoc,

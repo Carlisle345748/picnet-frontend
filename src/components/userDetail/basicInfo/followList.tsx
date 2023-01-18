@@ -97,11 +97,11 @@ function FollowList({setModal, listType, userId}: FollowListProp) {
     };
 
     const data = listType === 'follower'
-        ? followerData!.user!.profile.follower
-        : followingData!.user!.profile.following;
+        ? followerData?.user?.profile.follower
+        : followingData?.user?.profile.following;
 
     return (
-        data && (
+        !data ? <></> : (
             <Stack alignItems="center" justifyContent="center">
                 <DialogTitle fontSize={28} fontWeight="medium">
                     {createTitle(listType)}

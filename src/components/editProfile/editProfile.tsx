@@ -1,7 +1,7 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import {selectLoggedInUser} from "../loginRegister/loginSlice";
-import {useHandleGraphQLError} from "../../utils.jsx";
-import {Box, Button, Modal, Stack, TextField, Typography} from "@mui/material";
+import {useHandleGraphQLError} from "../../utils";
+import {Box, Button, Modal, Stack, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
 import {useEffect, useState} from "react";
 import {EditAvatar, UploadAvatar} from "./editAvatar";
 import {useAppSelector} from "../../store/hooks";
@@ -15,6 +15,7 @@ type Inputs = {
 
 
 export const EditProfile = function () {
+    const theme = useTheme();
     const [open, setOpen] = useState(false);
     const loggedInUser = useAppSelector(selectLoggedInUser);
     const {data, error: queryErr} = useGetLoginUserBasicQuery({variables: {id: loggedInUser?.id}});
@@ -64,19 +65,21 @@ export const EditProfile = function () {
         updateProfile({variables: {input: data}}).catch(console.log);
     }
 
+    const mobile = useMediaQuery(theme.breakpoints.down(560));
+
     return (
         !data?.user ? <></> :
-            <Stack justifyContent="center" alignItems="center">
+            <Stack justifyContent="center" alignItems="center" width='100%'>
                 <EditAvatar user={data.user!} setOpen={setOpen}/>
                 <Box
                     component='form'
                     onSubmit={handleSubmit(onSubmit)}
-                    sx={{mt: 1, width: 500}}
+                    sx={{mt: 1, width: mobile ? "95%" : 500}}
                 >
                     <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" mt={1}
-                           width="inherit">
-                        <Box width="inherit">
-                            <Typography fontSize={12} mb={0.7} color="grey">First Name</Typography>
+                           width="100%">
+                        <Box width="50%">
+                            <Typography width='50%' fontSize={12} mb={0.7} color="grey">First Name</Typography>
                             <TextField
                                 fullWidth
                                 variant="outlined"
@@ -89,7 +92,7 @@ export const EditProfile = function () {
                                 InputProps={{sx: {borderRadius: 4, height: 48}}}
                             />
                         </Box>
-                        <Box width="inherit">
+                        <Box width="50%">
                             <Typography fontSize={12} mb={0.7} color="grey">Last Name</Typography>
                             <TextField
                                 fullWidth

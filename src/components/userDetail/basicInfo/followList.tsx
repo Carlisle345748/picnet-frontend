@@ -68,6 +68,7 @@ function FollowList({setModal, listType, userId}: FollowListProp) {
                     component={Link}
                     to={`/user/${user.id}`}
                     onClick={() => setModal({open: false, list: null})}
+                    sx={{"&.MuiListItemButton-root": {paddingRight: 16}}}
                 >
                     <ListItemAvatar>
                         <ProfileAvatar
@@ -77,7 +78,7 @@ function FollowList({setModal, listType, userId}: FollowListProp) {
                         />
                     </ListItemAvatar>
                     <ListItemText
-                        primary={<Typography fontWeight="medium">{name}</Typography>}
+                        primary={<Typography noWrap fontWeight="medium">{name}</Typography>}
                         secondary={<Typography noWrap>{user.profile.description}</Typography>}
                     />
                 </ListItemButton>

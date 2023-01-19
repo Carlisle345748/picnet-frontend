@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useMemo} from "react";
 import {useNavigate} from "react-router";
 import {logout} from "./components/loginRegister/loginSlice";
 import {ApolloError, useApolloClient} from "@apollo/client";
@@ -9,7 +9,7 @@ import {ErrorAlert, LoginExpireAlert} from "./components/alert/alert";
 import {useAppDispatch} from "./store/hooks";
 
 
-export const extract = <TNode, >(connection: {edges: Array<{node: TNode}>}) => {
+export const extract = <TNode, >(connection: { edges: Array<{ node: TNode }> }) => {
     return connection.edges
         .map(edge => edge.node)
 }
@@ -87,4 +87,24 @@ export const toNow = (date: string) => {
 
 export const getLocationMain = (location: string) => {
     return location.split(',')[0];
+}
+
+function debounce(this: any, fn: Function, ms: number) {
+    let timer: number | null
+    return () => {
+        if (timer) clearTimeout(timer)
+        timer = setTimeout(_ => {
+            timer = null
+            fn.apply(this, arguments)
+        }, ms)
+    };
+}
+
+export function useResizeListener(onResize: (this: Window, ev: UIEvent) => any, debounceTime: number) {
+    const debouncedOnResize = useMemo(() => debounce(onResize, debounceTime), [debounceTime]);
+
+    useEffect(() => {
+        window.addEventListener('resize', debouncedOnResize);
+        return () => window.removeEventListener('resize', debouncedOnResize);
+    }, [])
 }

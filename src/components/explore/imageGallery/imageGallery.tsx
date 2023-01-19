@@ -1,7 +1,8 @@
 import {Box, BoxProps} from "@mui/material";
+import React from "react";
 
 
-export function Gallery({children}: BoxProps) {
+export function Gallery({children, width}: { children: React.ReactNode, width: number }) {
     return (
         <Box
             sx={{
@@ -14,10 +15,10 @@ export function Gallery({children}: BoxProps) {
                 left: '50%',
                 transform: "translateX(-50%)",
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, 252px)",
+                gridTemplateColumns: `repeat(auto-fill, ${width + Math.round(width*0.07)}px)`,
                 gridAutoRows: "1px",
                 justifyContent: "center",
-                minWidth: '540px'
+                minWidth: '150px'
             }}
         >
             {children}

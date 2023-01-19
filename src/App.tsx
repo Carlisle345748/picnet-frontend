@@ -11,7 +11,6 @@ import {Home} from "./components/home/home";
 import {CreatPost} from "./components/createPost/createPost";
 import {SearchResult} from "./components/searchResult/searchResult";
 import LoginRegister from "./components/loginRegister/loginRegister";
-import Grid from "@mui/material/Grid";
 import {ErrorPage} from "./components/errorPage/errorPage";
 import TopBar from "./components/topBar/topBar.jsx";
 import {ThemeProvider} from "@mui/material/styles";
@@ -23,21 +22,16 @@ function Root() {
 
     return (
         <ThemeProvider theme={theme}>
-            <div>
-                <Grid container direction="column">
-                    <Grid>
-                        <TopBar />
-                    </Grid>
-                    <Grid pt={10}>
-                        <Stack
-                            justifyContent="center"
-                            alignItems="center"
-                        >
-                            <Outlet />
-                        </Stack>
-                    </Grid>
-                </Grid>
-            </div>
+            <Stack >
+                <TopBar />
+                <Stack
+                    pt={10}
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Outlet />
+                </Stack>
+            </Stack>
         </ThemeProvider>
     );
 }

@@ -51,7 +51,7 @@ function PhotoHits() {
 
     useResizeListener(() => {
         setImageWidth(GetImageWidth());
-    }, 200)
+    }, 10)
 
     if (results?.query && hits.length === 0) {
         return <NotFound/>;

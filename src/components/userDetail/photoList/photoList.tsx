@@ -33,7 +33,7 @@ export default function PhotoList({user}: PhotoListProp) {
 
     useResizeListener(() => {
         setImageWidth(GetImageWidth());
-    }, 200)
+    }, 10)
 
     return (
         <Box

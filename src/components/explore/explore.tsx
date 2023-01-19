@@ -65,7 +65,7 @@ export const Explore = function () {
 
     useResizeListener(() => {
         setImageWidth(GetImageWidth());
-    }, 200)
+    }, 10)
 
     return (
         !data?.photos ? <></> :

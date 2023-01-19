@@ -85,7 +85,7 @@ export function Autocomplete() {
                     panelRootRef.current?.unmount();
                     panelRootRef.current = createRoot(root);
                 }
-                panelRootRef?.current?.render(children);
+                panelRootRef.current.render(children);
             },
             onReset({setIsOpen}) {
                 dispatch(clearSearch());

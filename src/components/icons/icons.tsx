@@ -107,3 +107,15 @@ export function ArrowIcon(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     )
 }
+
+export function ExpandIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg width="20" height="24" xmlns="http://www.w3.org/2000/svg" {...props}>
+            <g>
+                <title>Layer 1</title>
+                <path opacity="0.8" stroke="null" id="svg_1" d="m18.39732,8.6349l-5.46418,5.46418l-5.46418,-5.46418l-1.68633,1.68633l7.15051,7.15051l7.15051,-7.15051l-1.68633,-1.68633z"/>
+                <path stroke="null" id="svg_2" fill="none" d="m54.67551,32.2742l46,0l0,49l-46,0l0,-49z"/>
+            </g>
+        </svg>
+    )
+}

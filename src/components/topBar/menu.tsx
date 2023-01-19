@@ -70,7 +70,7 @@ export default function ProfileMenu({anchorEl, setAnchorEl}: ProfileMenuProp) {
                     component={Link}
                     to={`/user/${loginUserId}`}
                     onClick={() => setAnchorEl(null)}
-                    sx={{mb: 1, borderRadius: 5}}
+                    sx={{mb: 1, borderRadius: 2}}
                 >
                     <ListItemAvatar>
                         <ProfileAvatar
@@ -87,10 +87,10 @@ export default function ProfileMenu({anchorEl, setAnchorEl}: ProfileMenuProp) {
                         secondary={data.user.username}
                     />
                 </MenuItem>
-                <MenuItem onClick={handleEditProfile} sx={{borderRadius: 5}}>
+                <MenuItem onClick={handleEditProfile} sx={{borderRadius: 2}}>
                     <Typography fontWeight="medium">Edit Profile</Typography>
                 </MenuItem>
-                <MenuItem onClick={handleLogout} sx={{borderRadius: 5}}>
+                <MenuItem onClick={handleLogout} sx={{borderRadius: 2}}>
                     <Typography fontWeight="medium">Log out</Typography>
                 </MenuItem>
             </Menu>

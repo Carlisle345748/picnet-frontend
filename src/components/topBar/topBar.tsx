@@ -7,7 +7,7 @@ import {useApolloClient} from "@apollo/client";
 import {Link} from "react-router-dom";
 import Grid from "@mui/material/Unstable_Grid2";
 import ProfileMenu from "./menu";
-import Nav from "./navigate";
+import {NavBar} from "./navigate/navigate";
 import {useHandleGraphQLError} from "../../utils";
 import {ProfileAvatar} from "../avatar/profileAvatar";
 import {SearchBar} from "./search/searchbar";
@@ -29,7 +29,7 @@ function TopBar() {
         onError(error) {
             if (error.graphQLErrors.length > 0) {
                 dispatch(logout());
-                client.resetStore();
+                client.resetStore().catch(console.log);
             }
         }
     });
@@ -49,8 +49,8 @@ function TopBar() {
         !(isLoggedIn && data?.user) ? <></> : (
             <AppBar id={"appbar"} sx={{backgroundColor: "white", boxShadow: "none", pb: 1, pr: 0}}>
                 <Toolbar component={Grid} container disableGutters pt={2}>
-                    <Grid width={300} sx={{justifyContent: "flex-start", ml: 2}}>
-                        <Nav/>
+                    <Grid sx={{justifyContent: "flex-start", ml: 2}}>
+                        <NavBar/>
                     </Grid>
                     <Grid
                         container
@@ -59,7 +59,7 @@ function TopBar() {
                     >
                         <SearchBar/>
                     </Grid>
-                    <Grid container width={130} sx={{justifyContent: "center"}}>
+                    <Grid container width={120} sx={{justifyContent: "center"}}>
                         <Box>
                             <IconButton
                                 size="large"
@@ -71,10 +71,7 @@ function TopBar() {
                                 <ProfileAvatar
                                     alt={data.user.firstName + " " + data.user.lastName}
                                     src={data?.user.profile.avatar}
-                                    sx={{
-                                        width: 27,
-                                        height: 27,
-                                    }}
+                                    sx={{width: 27, height: 27}}
                                 />
                             </IconButton>
                             <IconButton

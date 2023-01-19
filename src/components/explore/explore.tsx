@@ -47,9 +47,12 @@ export function Image({photo, width, setModal}: ImageProp) {
     );
 }
 
+function GetImageWidth() {
+    return Math.min(Math.max(Math.round(window.innerWidth * 0.44), 120), 236)
+}
 
 export const Explore = function () {
-    const [imageWidth, setImageWidth] = useState(236);
+    const [imageWidth, setImageWidth] = useState(GetImageWidth());
     const {data, error, fetchMore} = useGetAllPhotosQuery({variables: {first: 25}})
     const [modal, setModal] = useState<ModalState>({open: false, photoId: null});
     useHandleGraphQLError([error]);
@@ -61,11 +64,7 @@ export const Explore = function () {
     }, {offset: 600});
 
     useResizeListener(() => {
-        if (window.innerWidth < 524) {
-            setImageWidth(Math.max(Math.round(window.innerWidth * 0.44), 120));
-        } else {
-            setImageWidth(236);
-        }
+        setImageWidth(GetImageWidth());
     }, 200)
 
     return (

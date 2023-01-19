@@ -7,6 +7,7 @@ import {Image} from "../userDetail/photoList/photoList";
 import {Configure, useInfiniteHits} from "react-instantsearch-hooks-web";
 import {AlgoliaSearcher} from "./searcher";
 import {BaseHit} from "instantsearch.js/es/types"
+import {useResizeListener} from "../../utils";
 
 
 type ModalState = {
@@ -28,6 +29,11 @@ const NotFound = () => {
     )
 }
 
+function GetImageWidth() {
+    return Math.min(Math.max(Math.round(window.innerWidth * 0.44), 120), 236)
+}
+
+
 function PhotoHits() {
     const [modal, setModal] = useState<ModalState>({open: false, photoId: null});
 
@@ -40,6 +46,12 @@ function PhotoHits() {
     useBottomScrollListener(() => {
         if (!isLastPage) showMore();
     });
+
+    const [imageWidth, setImageWidth] = useState(GetImageWidth());
+
+    useResizeListener(() => {
+        setImageWidth(GetImageWidth());
+    }, 200)
 
     if (results?.query && hits.length === 0) {
         return <NotFound/>;
@@ -55,7 +67,7 @@ function PhotoHits() {
                 {data.map((photo, idx) => {
                     return (
                         <Grid key={idx}>
-                            <Image photo={photo} onClick={() => {
+                            <Image photo={photo} width={imageWidth} onClick={() => {
                                 setModal({open: true, photoId: photo.id});
                                 sendEvent("click", photo, "Image Clicked");
                                 sendEvent("conversion", photo, "Image Interested")

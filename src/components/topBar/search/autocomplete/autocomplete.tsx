@@ -87,9 +87,8 @@ export function Autocomplete({placeholder = ""}: { placeholder?: string }) {
                 }
                 panelRootRef.current.render(children);
             },
-            onReset({setIsOpen}) {
+            onReset() {
                 dispatch(clearSearch());
-                setIsOpen(false);
                 if (location.pathname === "/search") {
                     navigate("/explore");
                 }

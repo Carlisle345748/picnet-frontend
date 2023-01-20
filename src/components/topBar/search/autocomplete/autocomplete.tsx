@@ -94,8 +94,15 @@ export function Autocomplete({placeholder = ""}: { placeholder?: string }) {
                     navigate("/explore");
                 }
             },
-            onSubmit({state}) {
+            onStateChange({state, prevState, refresh}) {
+                if (prevState.isOpen && !state.isOpen) {
+                    document.body.classList.remove("aa-Detached");
+                    refresh();
+                }
+            },
+            onSubmit({state, setIsOpen}) {
                 if (state.query === "") return;
+                setIsOpen(false);
                 if (location.pathname === "/search") {
                     dispatch(setSearch({...searchState, query: state.query}));
                     setParam((prev) => {

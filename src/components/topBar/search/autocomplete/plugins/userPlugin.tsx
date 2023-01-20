@@ -52,8 +52,9 @@ export function useUserPlugin(): AutocompletePlugin<UserHit, unknown> {
                                 return <UserItem hit={item} components={components}/>;
                             },
                         },
-                        onSelect({item}: { item: UserHit }) {
+                        onSelect({item, setIsOpen}: { item: UserHit, setIsOpen: (open: boolean) => void }) {
                             navigate(`/user/${item['global_id']}`);
+                            setIsOpen(false);
                         }
                     },
                 ]);

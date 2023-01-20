@@ -31,11 +31,12 @@ export function usePhotoQuerySuggestionPlugin() {
                             return <SuggestionItem hit={item} components={components}/>
                         }
                     },
-                    onSelect({item}) {
+                    onSelect({item, setIsOpen}) {
                         const newSearchState = {
                             query: item.query,
                             category: "photo",
                         };
+                        setIsOpen(false);
                         dispatch(setSearch(newSearchState));
                         navigate(`/search?${qs.stringify(newSearchState)}`);
                     },

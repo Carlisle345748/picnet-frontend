@@ -26,7 +26,8 @@ export function useRecentSearchPlugin() {
                             return <RecentSearchItem item={item} components={components} onRemove={onRemove}/>
                         }
                     },
-                    onSelect({item}) {
+                    onSelect({item, setIsOpen}) {
+                        setIsOpen(false);
                         const newSearchState = {
                             query: item.label,
                             category: "photo",

@@ -3,7 +3,6 @@ import {useSelector} from "react-redux";
 import {selectLoggedUserId} from "../loginRegister/loginSlice";
 import {useHandleGraphQLError} from "../../utils";
 import {Configure, useInfiniteHits} from 'react-instantsearch-hooks-web';
-import {Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {FollowButton} from "../button/followButton";
 import {Link} from "react-router-dom";
 import {useBottomScrollListener} from "react-bottom-scroll-listener";
@@ -12,7 +11,17 @@ import {ProfileAvatar} from "../avatar/profileAvatar";
 import {AlgoliaSearcher} from "./searcher";
 import {useGetFollowStatusQuery, UserFollowStatusFragmentDoc} from "../../gql/gql";
 import {BaseHit} from "instantsearch.js/es/types";
-
+import {
+    Box,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemButton,
+    ListItemText,
+    Typography,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
 
 interface UserHit extends BaseHit {
     "global_id": string
@@ -30,6 +39,8 @@ const NotFound = () => {
 }
 
 function UserHits() {
+    const theme = useTheme();
+    const mobile = useMediaQuery(theme.breakpoints.down(680));
     const loggedInUserId = useSelector(selectLoggedUserId);
     const {hits, results, currentPageHits, showMore, sendEvent, isLastPage} = useInfiniteHits<UserHit>();
 
@@ -72,7 +83,7 @@ function UserHits() {
     }
 
     return (
-        <List sx={{minWidth: 650, maxWidth: 1500}}>
+        <List sx={{width: mobile ? "100%" : 650}}>
             {users.map((user, index) => {
                 return (
                     <ListItem
@@ -92,7 +103,7 @@ function UserHits() {
                             </Typography>}
                     >
                         <ListItemButton
-                            sx={{borderRadius: 10}}
+                            sx={{borderRadius: 10, "&.MuiListItemButton-root": {paddingRight: 16}}}
                             component={Link}
                             to={`/user/${user.id}`}
                         >

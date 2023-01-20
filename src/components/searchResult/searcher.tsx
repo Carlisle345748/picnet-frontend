@@ -1,7 +1,7 @@
 import {useSearchParams} from "react-router-dom";
 import {InstantSearch, useInstantSearch, useSearchBox} from "react-instantsearch-hooks-web";
 import React, {useEffect, useLayoutEffect} from "react";
-import {Box} from "@mui/material";
+import {Box, Stack} from "@mui/material";
 import {useAlgolia} from "../../algolia";
 import {createInsightsMiddleware} from "instantsearch.js/es/middlewares";
 import insightsClient from "search-insights";
@@ -27,7 +27,7 @@ function SearcherWrapper({children}: { children: React.ReactNode }) {
         return use(middleware);
     }, [use]);
 
-    return <Box>{children}</Box>
+    return <Stack justifyContent="center" alignItems="center" width="100%">{children}</Stack>
 }
 
 export function AlgoliaSearcher({index, children}: { index: string, children: React.ReactNode }) {

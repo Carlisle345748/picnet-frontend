@@ -30,7 +30,7 @@ export const SearchResult = () => {
 
 
     return (
-        <Stack justifyContent="center" alignItems="center" spacing={2}>
+        <Stack justifyContent="center" alignItems="center" spacing={2} width="100%">
             <Tabs
                 value={value}
                 onChange={handleChange}

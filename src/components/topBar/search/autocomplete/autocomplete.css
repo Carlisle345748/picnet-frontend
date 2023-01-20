@@ -31,19 +31,13 @@
     padding: 10px;
     position: center;
     border-radius: 30px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .aa-DetachedSearchButton:hover {
     background-color: rgba(236, 236, 236, 0.5);
     cursor: pointer;
 }
-
-@media (hover: none) {
-    .aa-DetachedSearchButton:hover {
-        background-color: transparent;
-    }
-}
-
 
 .aa-DetachedSearchButtonIcon svg {
     z-index: 1;

@@ -17,6 +17,15 @@ type PhotoDetailProp = {
 }
 
 export default function PhotoDetail({photoId, setModal}: PhotoDetailProp) {
+    const theme = useTheme();
+    const textInput = useRef<HTMLInputElement>(null);
+    const vertical = useMediaQuery(theme.breakpoints.down(900));
+
+    const {data, error, fetchMore} = useGetPhotoQuery({
+        variables: {id: photoId, first: 15},
+        skip: !Boolean(photoId),
+    });
+
     const modalStyle = {
         position: "absolute",
         top: "50%",
@@ -26,18 +35,9 @@ export default function PhotoDetail({photoId, setModal}: PhotoDetailProp) {
         p: 4,
         borderRadius: 2,
         width: "80%",
-        height: "90%",
+        height: vertical ? "83%" : "90%",
         paddingBottom: "15px",
     };
-
-    const textInput = useRef<HTMLInputElement>(null);
-    const theme = useTheme();
-    const vertical = useMediaQuery(theme.breakpoints.down(900));
-
-    const {data, error, fetchMore} = useGetPhotoQuery({
-        variables: {id: photoId, first: 15},
-        skip: !Boolean(photoId),
-    });
 
     useHandleGraphQLError([error]);
 

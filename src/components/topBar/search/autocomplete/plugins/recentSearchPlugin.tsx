@@ -8,33 +8,36 @@ import {HistoryIcon} from "../../../../icons/icons";
 import CloseIcon from '@mui/icons-material/Close';
 import {RecentSearchesItem} from "@algolia/autocomplete-plugin-recent-searches/dist/esm/types";
 import {AutocompleteComponents} from "@algolia/autocomplete-js";
+import {useMemo} from "react";
 
 export function useRecentSearchPlugin() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    return createLocalStorageRecentSearchesPlugin({
-        key: 'RECENT_SEARCH',
-        limit: 10,
-        transformSource({source, onRemove}) {
-            return {
-                ...source,
-                templates: {
-                    item({item, components}) {
-                        return <RecentSearchItem item={item} components={components} onRemove={onRemove}/>
-                    }
-                },
-                onSelect({item}) {
-                    const newSearchState = {
-                        query: item.label,
-                        category: "photo",
-                    };
-                    dispatch(setSearch(newSearchState));
-                    navigate(`/search?${qs.stringify(newSearchState)}`);
-                },
+    return useMemo(() => {
+        return createLocalStorageRecentSearchesPlugin({
+            key: 'RECENT_SEARCH',
+            limit: 10,
+            transformSource({source, onRemove}) {
+                return {
+                    ...source,
+                    templates: {
+                        item({item, components}) {
+                            return <RecentSearchItem item={item} components={components} onRemove={onRemove}/>
+                        }
+                    },
+                    onSelect({item}) {
+                        const newSearchState = {
+                            query: item.label,
+                            category: "photo",
+                        };
+                        dispatch(setSearch(newSearchState));
+                        navigate(`/search?${qs.stringify(newSearchState)}`);
+                    },
+                }
             }
-        }
-    });
+        })
+    }, []);
 }
 
 type RecentSearchItemProp = {

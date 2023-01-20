@@ -25,39 +25,41 @@ export function useUserPlugin(): AutocompletePlugin<UserHit, unknown> {
     const debounced = useMemo(() =>
         debounce((item: Array<AutocompleteSource<UserHit>>) => item, 300), []);
 
-    return {
-        getSources({query}) {
-            return debounced([
-                {
-                    sourceId: "user",
-                    getItems() {
-                        if (!query) return [];
-                        return getAlgoliaResults({
-                            searchClient,
-                            queries: [
-                                {
-                                    indexName: `photo_share_user_${import.meta.env.VITE_APP_ENV}`,
-                                    query,
-                                    params: {
-                                        hitsPerPage: 10,
-                                        clickAnalytics: true,
+    return useMemo(() => {
+        return {
+            getSources({query}) {
+                return debounced([
+                    {
+                        sourceId: "user",
+                        getItems() {
+                            if (!query) return [];
+                            return getAlgoliaResults({
+                                searchClient,
+                                queries: [
+                                    {
+                                        indexName: `photo_share_user_${import.meta.env.VITE_APP_ENV}`,
+                                        query,
+                                        params: {
+                                            hitsPerPage: 10,
+                                            clickAnalytics: true,
+                                        },
                                     },
-                                },
-                            ],
-                        });
-                    },
-                    templates: {
-                        item({item, components}: { item: UserHit, components: AutocompleteComponents }) {
-                            return <UserItem hit={item} components={components}/>;
+                                ],
+                            });
                         },
+                        templates: {
+                            item({item, components}: { item: UserHit, components: AutocompleteComponents }) {
+                                return <UserItem hit={item} components={components}/>;
+                            },
+                        },
+                        onSelect({item}: { item: UserHit }) {
+                            navigate(`/user/${item['global_id']}`);
+                        }
                     },
-                    onSelect({item}: { item: UserHit }) {
-                        navigate(`/user/${item['global_id']}`);
-                    }
-                },
-            ]);
-        },
-    };
+                ]);
+            },
+        };
+    }, [])
 }
 
 function UserItem({hit, components}: { hit: UserHit, components: AutocompleteComponents }) {

@@ -8,6 +8,7 @@ import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
 import {AutocompleteQuerySuggestionsHit} from "@algolia/autocomplete-plugin-query-suggestions/dist/esm/types";
 import {AutocompleteComponents} from "@algolia/autocomplete-js";
+import {useMemo} from "react";
 
 
 export function usePhotoQuerySuggestionPlugin() {
@@ -15,31 +16,33 @@ export function usePhotoQuerySuggestionPlugin() {
     const dispatch = useDispatch();
 
     const {searchClient} = useAlgolia();
-    return createQuerySuggestionsPlugin({
-        searchClient,
-        indexName: `photo_share_photo_${import.meta.env.VITE_APP_ENV}_query_suggestions`,
-        getSearchParams() {
-            return {hitsPerPage: 10};
-        },
-        transformSource({source}) {
-            return {
-                ...source,
-                templates: {
-                    item({item, components}) {
-                        return <SuggestionItem hit={item} components={components}/>
-                    }
-                },
-                onSelect({item}) {
-                    const newSearchState = {
-                        query: item.query,
-                        category: "photo",
-                    };
-                    dispatch(setSearch(newSearchState));
-                    navigate(`/search?${qs.stringify(newSearchState)}`);
-                },
+    return useMemo(() => {
+        return createQuerySuggestionsPlugin({
+            searchClient,
+            indexName: `photo_share_photo_${import.meta.env.VITE_APP_ENV}_query_suggestions`,
+            getSearchParams() {
+                return {hitsPerPage: 10};
+            },
+            transformSource({source}) {
+                return {
+                    ...source,
+                    templates: {
+                        item({item, components}) {
+                            return <SuggestionItem hit={item} components={components}/>
+                        }
+                    },
+                    onSelect({item}) {
+                        const newSearchState = {
+                            query: item.query,
+                            category: "photo",
+                        };
+                        dispatch(setSearch(newSearchState));
+                        navigate(`/search?${qs.stringify(newSearchState)}`);
+                    },
+                }
             }
-        }
-    });
+        })
+    }, []);
 }
 
 type SuggestionItemProp = { hit: AutocompleteQuerySuggestionsHit, components: AutocompleteComponents }

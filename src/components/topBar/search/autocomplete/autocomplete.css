@@ -29,12 +29,13 @@
     height: 51px;
     z-index: 0;
     padding: 10px;
+    position: center;
+    border-radius: 30px;
 }
 
 .aa-DetachedSearchButton:hover {
     background-color: rgba(236, 236, 236, 0.5);
     cursor: pointer;
-    border-radius: 30px;
 }
 
 

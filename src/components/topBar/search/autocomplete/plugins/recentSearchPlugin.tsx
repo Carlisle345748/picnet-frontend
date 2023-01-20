@@ -1,8 +1,6 @@
 import {createLocalStorageRecentSearchesPlugin} from '@algolia/autocomplete-plugin-recent-searches';
-import {setSearch} from "../searchSlice";
 import qs from "qs";
 import {useNavigate} from "react-router";
-import {useDispatch} from "react-redux";
 import {Box} from "@mui/material";
 import {HistoryIcon} from "../../../../icons/icons";
 import CloseIcon from '@mui/icons-material/Close';
@@ -12,7 +10,6 @@ import {useMemo} from "react";
 
 export function useRecentSearchPlugin() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     return useMemo(() => {
         return createLocalStorageRecentSearchesPlugin({
@@ -26,13 +23,13 @@ export function useRecentSearchPlugin() {
                             return <RecentSearchItem item={item} components={components} onRemove={onRemove}/>
                         }
                     },
-                    onSelect({item, setIsOpen}) {
+                    onSelect({item, setIsOpen, setQuery}) {
                         setIsOpen(false);
+                        setQuery(item.label);
                         const newSearchState = {
                             query: item.label,
                             category: "photo",
                         };
-                        dispatch(setSearch(newSearchState));
                         navigate(`/search?${qs.stringify(newSearchState)}`);
                     },
                 }

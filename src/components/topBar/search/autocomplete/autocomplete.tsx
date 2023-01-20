@@ -7,8 +7,6 @@ import "./autocomplete.css";
 import {useUserPlugin} from "./plugins/userPlugin";
 import {createAlgoliaInsightsPlugin} from '@algolia/autocomplete-plugin-algolia-insights';
 import insightsClient from 'search-insights';
-import {useDispatch, useSelector} from "react-redux";
-import {clearSearch, selectSearch, setSearch} from "./searchSlice";
 import {useNavigate} from "react-router";
 import {useLocation, useSearchParams} from "react-router-dom";
 import qs from "qs";
@@ -19,10 +17,8 @@ import {limit, removeEmpty, uniqBy} from "./reshapeScource";
 
 export function Autocomplete({placeholder = ""}: { placeholder?: string }) {
     const location = useLocation();
-    const [param, setParam] = useSearchParams();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const searchState = useSelector(selectSearch);
+    const [param, setParam] = useSearchParams();
 
     const containerRef = useRef<HTMLElement | null>(null);
     const panelRootRef = useRef<ReturnType<typeof createRoot> | null>(null);
@@ -33,24 +29,16 @@ export function Autocomplete({placeholder = ""}: { placeholder?: string }) {
     const querySuggestionPulign = usePhotoQuerySuggestionPlugin();
     const recentSearchPlugin = useRecentSearchPlugin();
 
+    const getDetach = () => {
+        return document.getElementsByClassName("aa-DetachedOverlay").item(0);
+    }
+
     const plugins = useMemo(() => [
         recentSearchPlugin,
         querySuggestionPulign,
         userPlugin,
         algoliaInsightsPlugin,
     ], [algoliaInsightsPlugin, querySuggestionPulign, recentSearchPlugin, userPlugin]);
-
-    useEffect(() => {
-        if (location.pathname !== "/search") {
-            dispatch(clearSearch());
-        } else {
-            const query = param.get("query") ?? "";
-            const category = param.get("category") ?? "";
-            if (query !== searchState.query || category !== searchState.category) {
-                dispatch(setSearch({query, category}));
-            }
-        }
-    }, [dispatch, location.pathname, param, searchState])
 
     useEffect(() => {
         if (!containerRef.current) {
@@ -74,7 +62,7 @@ export function Autocomplete({placeholder = ""}: { placeholder?: string }) {
             openOnFocus: true,
             placeholder: placeholder,
             container: containerRef.current,
-            initialState: {query: searchState.query},
+            initialState: {query: param.get("query") ?? ""},
             renderer: {
                 createElement, Fragment, render: () => {
                 }
@@ -87,30 +75,29 @@ export function Autocomplete({placeholder = ""}: { placeholder?: string }) {
                 }
                 panelRootRef.current.render(children);
             },
-            onReset() {
-                dispatch(clearSearch());
-                if (location.pathname === "/search") {
+            onReset({setQuery}) {
+                setQuery("");
+                if (location.pathname === "/search" && !getDetach()) {
                     navigate("/explore");
                 }
             },
             onStateChange({state, prevState, refresh}) {
                 if (prevState.isOpen && !state.isOpen) {
                     document.body.classList.remove("aa-Detached");
-                    refresh();
+                    refresh().catch(console.log);
                 }
             },
             onSubmit({state, setIsOpen}) {
                 if (state.query === "") return;
+
                 setIsOpen(false);
                 if (location.pathname === "/search") {
-                    dispatch(setSearch({...searchState, query: state.query}));
                     setParam((prev) => {
                         prev.set("query", state.query);
                         return prev;
                     });
                 } else {
                     const newSearchState = {query: state.query, category: "photo"};
-                    dispatch(setSearch(newSearchState));
                     navigate(`/search?${qs.stringify(newSearchState)}`);
                 }
             },
@@ -125,7 +112,7 @@ export function Autocomplete({placeholder = ""}: { placeholder?: string }) {
         return () => {
             search.destroy();
         };
-    }, [dispatch, location.pathname, navigate, plugins, searchState, setParam, userPlugin]);
+    }, [location.pathname, navigate, plugins, setParam, userPlugin]);
 
     return <Box ref={containerRef} sx={{width: '100%'}}/>;
 }

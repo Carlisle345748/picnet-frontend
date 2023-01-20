@@ -2,10 +2,8 @@ import {createQuerySuggestionsPlugin} from "@algolia/autocomplete-plugin-query-s
 import {useAlgolia} from "../../../../../algolia.jsx";
 import {Box} from "@mui/material";
 import {ArrowIcon, SearchIcon} from "../../../../icons/icons";
-import {setSearch} from "../searchSlice";
 import qs from "qs";
 import {useNavigate} from "react-router";
-import {useDispatch} from "react-redux";
 import {AutocompleteQuerySuggestionsHit} from "@algolia/autocomplete-plugin-query-suggestions/dist/esm/types";
 import {AutocompleteComponents} from "@algolia/autocomplete-js";
 import {useMemo} from "react";
@@ -13,7 +11,6 @@ import {useMemo} from "react";
 
 export function usePhotoQuerySuggestionPlugin() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const {searchClient} = useAlgolia();
     return useMemo(() => {
@@ -31,13 +28,13 @@ export function usePhotoQuerySuggestionPlugin() {
                             return <SuggestionItem hit={item} components={components}/>
                         }
                     },
-                    onSelect({item, setIsOpen}) {
+                    onSelect({item, setIsOpen, setQuery}) {
                         const newSearchState = {
                             query: item.query,
                             category: "photo",
                         };
+                        setQuery(item.query);
                         setIsOpen(false);
-                        dispatch(setSearch(newSearchState));
                         navigate(`/search?${qs.stringify(newSearchState)}`);
                     },
                 }

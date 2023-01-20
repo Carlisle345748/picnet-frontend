@@ -18,6 +18,12 @@ interface UserHit extends BaseItem {
     name: string
 }
 
+type OnSelectProp = {
+    item: UserHit,
+    setIsOpen: (open: boolean) => void,
+    setQuery: (value: string) => void
+}
+
 export function useUserPlugin(): AutocompletePlugin<UserHit, unknown> {
     const {searchClient} = useAlgolia();
     const navigate = useNavigate();
@@ -52,9 +58,10 @@ export function useUserPlugin(): AutocompletePlugin<UserHit, unknown> {
                                 return <UserItem hit={item} components={components}/>;
                             },
                         },
-                        onSelect({item, setIsOpen}: { item: UserHit, setIsOpen: (open: boolean) => void }) {
-                            navigate(`/user/${item['global_id']}`);
+                        onSelect({item, setIsOpen, setQuery}: OnSelectProp) {
+                            setQuery("")
                             setIsOpen(false);
+                            navigate(`/user/${item['global_id']}`);
                         }
                     },
                 ]);

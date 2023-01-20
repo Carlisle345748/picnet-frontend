@@ -38,6 +38,12 @@
     cursor: pointer;
 }
 
+@media (hover: none) {
+    .aa-DetachedSearchButton:hover {
+        background-color: transparent;
+    }
+}
+
 
 .aa-DetachedSearchButtonIcon svg {
     z-index: 1;

@@ -5,7 +5,7 @@ import {LocationInput} from "./locationInput/locationInput";
 import {TagsInput} from "./tagsInput/tagsInput";
 import {ProfileAvatar} from "../avatar/profileAvatar";
 
-type PhotoInfoProp = {
+export type PhotoInfoProp = {
     user: {
         firstName: string
         lastName: string
@@ -14,16 +14,17 @@ type PhotoInfoProp = {
         }
     }
     loading: boolean
+    width?: number | string
 }
 
 
-export const PhotoInfo = ({user, loading}: PhotoInfoProp) => {
+export const PhotoInfo = ({user, loading, width}: PhotoInfoProp) => {
     const {register} = useFormContext();
 
     return (
         <>
             {user &&
-                <Stack spacing={2} width={350}>
+                <Stack spacing={2} width={width}>
                     <Stack direction='row' alignItems="center" spacing={1}>
                         <ProfileAvatar
                             src={user.profile.avatar}

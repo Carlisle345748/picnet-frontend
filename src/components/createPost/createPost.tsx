@@ -1,19 +1,20 @@
-import {Paper, Stack} from "@mui/material";
+import {Paper, Stack, useMediaQuery, useTheme} from "@mui/material";
 import {SelectPhoto} from "./selectPhoto";
 import {useSelector} from "react-redux";
 import {selectLoggedUserId} from "../loginRegister/loginSlice";
 import {useHandleGraphQLError} from "../../utils.jsx";
-import {PhotoInfo} from "./photoInfo";
-import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import {PhotoInfo, PhotoInfoProp} from "./photoInfo";
+import {FormProvider, SubmitHandler, useForm, useFormContext} from "react-hook-form";
 import {useNavigate} from "react-router";
 import React, {useState} from "react";
+import {StoreObject} from "@apollo/client/utilities/graphql/storeUtils";
 import {
     GetAllPhotosDocument,
     PhotoBasicFragmentDoc,
     useGetLoginUserBasicQuery,
     useUploadPhotoMutation
 } from "../../gql/gql";
-import {StoreObject} from "@apollo/client/utilities/graphql/storeUtils";
+
 
 type Inputs = {
     photo: FileList,
@@ -22,11 +23,21 @@ type Inputs = {
     tags: string[],
 };
 
+type CreatePostProp = {
+    checkKeyDown: React.KeyboardEventHandler
+    onSubmit: SubmitHandler<Inputs>
+    user: PhotoInfoProp["user"]
+    loading: boolean
+}
 
 export const CreatPost = () => {
+    const theme = useTheme();
     const navigate = useNavigate();
+    const methods = useForm<Inputs>();
     const loggedInUserId = useSelector(selectLoggedUserId);
     const [loading, setLoading] = useState(false);
+    const mobile = useMediaQuery(theme.breakpoints.down(600));
+
     const {data: userData, error: queryErr} = useGetLoginUserBasicQuery({variables: {id: loggedInUserId}});
     const [upload, {error: uploadErr}] = useUploadPhotoMutation({
         update(cache, {data}) {
@@ -70,14 +81,7 @@ export const CreatPost = () => {
             })
         }
     });
-
-    const methods = useForm<Inputs>();
-    const {handleSubmit} = methods;
     useHandleGraphQLError([queryErr, uploadErr]);
-
-    const checkKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter') e.preventDefault();
-    };
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         const {default: imageCompression} = await import("browser-image-compression");
@@ -103,28 +107,83 @@ export const CreatPost = () => {
         };
     }
 
+    const checkKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') e.preventDefault();
+    };
+
+
     return (
         !userData?.user ? <></> :
-        <FormProvider {...methods}>
-            <Paper
-                component='form'
-                onKeyDown={checkKeyDown}
-                onSubmit={handleSubmit(onSubmit)}
-                sx={{
-                    mt: 4,
-                    borderRadius: 5,
-                    p: 2,
-                    direction: 'row'
-                }}>
-                <Stack
-                    spacing={2}
-                    direction="row"
-                    sx={{justifyContent: 'center'}}
-                >
-                    <SelectPhoto/>
-                    <PhotoInfo user={userData.user!} loading={loading}/>
-                </Stack>
-            </Paper>
-        </FormProvider>
+            <FormProvider {...methods}>
+                {
+                    mobile
+                        ? <Mobile
+                            checkKeyDown={checkKeyDown}
+                            onSubmit={onSubmit}
+                            user={userData.user}
+                            loading={loading}
+                        />
+                        : <Desktop
+                            checkKeyDown={checkKeyDown}
+                            onSubmit={onSubmit}
+                            user={userData.user}
+                            loading={loading}
+                        />
+                }
+            </FormProvider>
+    )
+}
+
+
+function Desktop({checkKeyDown, onSubmit, user, loading}: CreatePostProp) {
+    const theme = useTheme();
+    const small = useMediaQuery(theme.breakpoints.down(1030));
+    const {handleSubmit} = useFormContext<Inputs>();
+    return (
+        <Paper
+            component='form'
+            onKeyDown={checkKeyDown}
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{
+                mt: 4,
+                borderRadius: 5,
+                p: 2,
+                direction: 'row',
+                width: small ? "90%" : 900
+            }}>
+            <Stack
+                spacing={3}
+                direction="row"
+                sx={{justifyContent: 'center', width: '100%'}}
+            >
+                <SelectPhoto width="55%" height={600}/>
+                <PhotoInfo user={user} loading={loading} width="45%"/>
+            </Stack>
+        </Paper>
+    )
+}
+
+function Mobile({checkKeyDown, onSubmit, loading, user}: CreatePostProp) {
+    const {handleSubmit} = useFormContext<Inputs>();
+
+    return (
+        <Paper
+            component='form'
+            onKeyDown={checkKeyDown}
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{
+                mt: 4,
+                borderRadius: 5,
+                p: 2,
+                width: '90%',
+            }}>
+            <Stack
+                spacing={2}
+                sx={{justifyContent: 'center'}}
+            >
+                <SelectPhoto width="100%" height={window.innerHeight * 0.5}/>
+                <PhotoInfo user={user} loading={loading} width="100%"/>
+            </Stack>
+        </Paper>
     )
 }

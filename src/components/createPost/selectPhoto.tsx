@@ -5,7 +5,7 @@ import {useFormContext, useWatch} from "react-hook-form";
 import {DragEventHandler, useState} from "react";
 
 
-export const PhotoPlaceHolder = () => {
+export const PhotoPlaceHolder = ({height}: { height: number | string }) => {
     const {formState: {errors}, setValue} = useFormContext();
     const theme = useTheme();
     const [dragActive, setDragActive] = useState(false);
@@ -46,8 +46,8 @@ export const PhotoPlaceHolder = () => {
             sx={{
                 backgroundColor: getBgColor(),
                 border: getBorder(),
-                width: 480,
-                height: 600,
+                width: '100%',
+                height: height,
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: 3,
@@ -61,7 +61,7 @@ export const PhotoPlaceHolder = () => {
                     borderColor: theme.palette.grey.A400,
                     borderStyle: 'dashed',
                     borderWidth: 2,
-                    width: 0.9,
+                    width: 0.93,
                     height: 0.93,
                     '&:hover': {cursor: 'pointer'}
                 }}
@@ -71,7 +71,7 @@ export const PhotoPlaceHolder = () => {
                         ? <ErrorIcon fontSize='large' color='error'/>
                         : <FileUploadIcon fontSize='large' color='action'/>
                 }
-                <Typography color={errors.photo ? "#d32f2f" : "textPrimary"}>
+                <Typography align="center" color={errors.photo ? "#d32f2f" : "textPrimary"}>
                     {errors.photo ? errors.photo.message as string : "Drag and drop or click to upload"}
                 </Typography>
             </Stack>
@@ -79,7 +79,7 @@ export const PhotoPlaceHolder = () => {
     )
 }
 
-export const Photo = ({photo}: { photo: File }) => {
+export const Photo = ({photo, height}: { photo: File, height: number | string }) => {
     const {setValue} = useFormContext();
 
     const handleDrag: DragEventHandler = async (e) => {
@@ -106,8 +106,8 @@ export const Photo = ({photo}: { photo: File }) => {
             component="label"
             htmlFor="upload-photo"
             sx={{
-                width: 480,
-                height: 600,
+                width: '100%',
+                height: height,
                 '&:hover': {
                     cursor: 'pointer',
                 }
@@ -125,12 +125,12 @@ export const Photo = ({photo}: { photo: File }) => {
     )
 }
 
-export const SelectPhoto = () => {
+export const SelectPhoto = ({width, height}: { width?: number | string, height: number | string }) => {
     const {register} = useFormContext();
     const photo = useWatch({name: 'photo', defaultValue: null});
 
     return (
-        <Box>
+        <Box sx={{width: width}}>
             <input
                 accept="image/*"
                 type="file"
@@ -138,7 +138,9 @@ export const SelectPhoto = () => {
                 style={{display: "none"}}
                 {...register("photo", {required: "You need to select a photo"})}
             />
-            {photo ? <Photo photo={photo[0]}/> : <PhotoPlaceHolder/>}
+            {photo?.length > 0
+                ? <Photo height={height} photo={photo[0]}/>
+                : <PhotoPlaceHolder height={height}/>}
         </Box>
     )
 }

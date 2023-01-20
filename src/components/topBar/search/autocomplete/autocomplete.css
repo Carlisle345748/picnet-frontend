@@ -64,7 +64,7 @@
 }
 
 @media (hover: none){
-    .aa-DetachedCancelButton:hover .aa-DetachedCancelButton:focus {
+    .aa-DetachedCancelButton:focus, .aa-DetachedCancelButton:hover  {
         box-shadow: none;
         -webkit-tap-highlight-color: transparent;
     }

@@ -35,8 +35,14 @@
 }
 
 .aa-DetachedSearchButton:hover {
-    background-color: rgba(236, 236, 236, 0.5);
+    background-color: transparent;
     cursor: pointer;
+}
+
+@media (hover: hover){
+    .aa-DetachedSearchButton:hover {
+        background-color: rgba(236, 236, 236, 0.5);
+    }
 }
 
 .aa-DetachedSearchButtonIcon svg {

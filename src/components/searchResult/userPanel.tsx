@@ -12,7 +12,6 @@ import {AlgoliaSearcher} from "./searcher";
 import {useGetFollowStatusQuery, UserFollowStatusFragmentDoc} from "../../gql/gql";
 import {BaseHit} from "instantsearch.js/es/types";
 import {
-    Box,
     List,
     ListItem,
     ListItemAvatar,
@@ -115,14 +114,13 @@ function UserHits() {
                             </ListItemAvatar>
                             <ListItemText
                                 primary={
-                                    <Box component='span'>
-                                        <Typography component="span" fontWeight="medium">
-                                            {user.firstName + " " + user.lastName + "\u00A0\u00A0"}
-                                        </Typography>
-                                        <Typography component="span" noWrap color='textSecondary'>
+                                    <Typography noWrap fontWeight="medium">
+                                        <span>{user.firstName + " " + user.lastName + "\u00A0\u00A0"}</span>
+                                        <Typography component="span" color="textSecondary">
                                             {user.profile.description}
                                         </Typography>
-                                    </Box>}
+                                    </Typography>
+                                }
                             />
                         </ListItemButton>
                     </ListItem>

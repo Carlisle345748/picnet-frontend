@@ -16,5 +16,5 @@
 
 .aa-ItemActionButton {
     --aa-muted-color-rgb: 128,126,163;
-    --aa-muted-color-alpha: 1;
+    --aa-muted-color-alpha: 0.8;
 }

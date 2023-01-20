@@ -43,7 +43,10 @@ export function usePhotoQuerySuggestionPlugin() {
     }, []);
 }
 
-type SuggestionItemProp = { hit: AutocompleteQuerySuggestionsHit, components: AutocompleteComponents }
+type SuggestionItemProp = {
+    hit: AutocompleteQuerySuggestionsHit,
+    components: AutocompleteComponents,
+}
 
 function SuggestionItem({hit, components}: SuggestionItemProp) {
     return (
@@ -58,7 +61,7 @@ function SuggestionItem({hit, components}: SuggestionItemProp) {
                     </Box>
                 </Box>
             </Box>
-            <button className="aa-ItemActionButton aa-ActiveOnly">
+            <button className="aa-ItemActionButton">
                 <ArrowIcon/>
             </button>
         </Box>

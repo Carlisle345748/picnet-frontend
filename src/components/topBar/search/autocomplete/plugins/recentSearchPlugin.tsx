@@ -58,7 +58,7 @@ function RecentSearchItem({item, components, onRemove}: RecentSearchItemProp) {
                 </Box>
             </Box>
             <button
-                className="aa-ItemActionButton aa-ActiveOnly"
+                className="aa-ItemActionButton"
                 onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();

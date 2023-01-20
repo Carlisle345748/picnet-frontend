@@ -81,7 +81,7 @@ function UserItem({hit, components}: { hit: UserHit, components: AutocompleteCom
                     </Box>
                 </Box>
             </Box>
-            <button className="aa-ItemActionButton aa-ActiveOnly">
+            <button className="aa-ItemActionButton">
                 <ArrowIcon/>
             </button>
         </Box>

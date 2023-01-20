@@ -58,3 +58,14 @@
 .aa-DetachedSearchButtonPlaceholder:hover {
    cursor: pointer;
 }
+
+.aa-DetachedCancelButton {
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none){
+    .aa-DetachedCancelButton:hover .aa-DetachedCancelButton:focus {
+        box-shadow: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+}

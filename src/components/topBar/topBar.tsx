@@ -53,8 +53,8 @@ function TopBar() {
                         <NavBar/>
                     </Grid>
                     <Grid
-                        container
                         xs
+                        container
                         sx={{justifyContent: "center", alignItems: "center", height: 45}}
                     >
                         <SearchBar/>

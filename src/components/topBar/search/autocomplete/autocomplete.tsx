@@ -17,7 +17,7 @@ import {useRecentSearchPlugin} from "./plugins/recentSearchPlugin";
 import {limit, removeEmpty, uniqBy} from "./reshapeScource";
 
 
-export function Autocomplete() {
+export function Autocomplete({placeholder = ""}: { placeholder?: string }) {
     const location = useLocation();
     const [param, setParam] = useSearchParams();
     const navigate = useNavigate();
@@ -72,7 +72,7 @@ export function Autocomplete() {
 
         const search = autocomplete({
             openOnFocus: true,
-            placeholder: "Search",
+            placeholder: placeholder,
             container: containerRef.current,
             initialState: {query: searchState.query},
             renderer: {

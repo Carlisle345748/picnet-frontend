@@ -1,4 +1,4 @@
-import {alpha, styled} from "@mui/material";
+import {alpha, Box, styled} from "@mui/material";
 import {Autocomplete} from "./autocomplete/autocomplete";
 
 export const Search = styled("form")(({theme}) => ({
@@ -18,7 +18,14 @@ export const Search = styled("form")(({theme}) => ({
 export function SearchBar() {
     return (
         <Search>
-            <Autocomplete/>
+            <Autocomplete placeholder="Search"/>
         </Search>
     )
+}
+
+export function SearchIcon() {
+    return (
+        <Box>
+            <Autocomplete/>
+        </Box>)
 }

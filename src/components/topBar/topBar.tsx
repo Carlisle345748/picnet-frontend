@@ -67,8 +67,8 @@ function TopBar() {
                             direction="row"
                             justifyContent="center"
                             alignContent="center"
-                            ml={tinyScreen ? 0 : 1}
-                            mr={tinyScreen ? 0.2 : 2}
+                            ml={desktop ? 1 : 0}
+                            mr={desktop ? 2 : 0.3}
                         >
                             {!desktop && <SearchButton/>}
                             {

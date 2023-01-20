@@ -8,7 +8,7 @@ import {NavBarDesktop} from "./desktop";
 
 export function NavBar() {
     const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.down(750));
+    const mobile = useMediaQuery(theme.breakpoints.down(510));
     return (
         <Stack direction="row" justifyContent="flex-start" alignItems="center" maxWidth={mobile ? 170 : 305}>
             <IconButton

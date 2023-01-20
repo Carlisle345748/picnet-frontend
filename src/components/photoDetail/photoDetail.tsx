@@ -61,7 +61,13 @@ export default function PhotoDetail({photoId, setModal}: PhotoDetailProp) {
                                         <CommentIcon/>
                                     </IconButton>
                                 </Box>
-                                <CommentInput photo={data.photo} textInputRef={textInput}/>
+                                <Box mb={2}>
+                                    <CommentInput photo={data.photo}
+                                                  textInputRef={textInput}
+                                                  borderColor={"#595959"}
+                                                  buttonColor={"#181818"}
+                                    />
+                                </Box>
                             </Stack>
                         </Grid2>
                     </Grid2>

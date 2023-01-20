@@ -18,3 +18,36 @@
     --aa-muted-color-rgb: 128,126,163;
     --aa-muted-color-alpha: 0.8;
 }
+
+.aa-SubmitButton {
+    padding-left: 15px;
+    padding-top: 4px;
+}
+
+.aa-DetachedSearchButton {
+    width: 51px;
+    height: 51px;
+    z-index: 0;
+    padding: 10px;
+}
+
+.aa-DetachedSearchButton:hover {
+    background-color: rgba(236, 236, 236, 0.5);
+    cursor: pointer;
+    border-radius: 30px;
+}
+
+
+.aa-DetachedSearchButtonIcon svg {
+    z-index: 1;
+    height: 23px;
+    width: 100%;
+}
+
+.aa-DetachedSearchButtonIcon svg:hover {
+    cursor: pointer;
+}
+
+.aa-DetachedSearchButtonPlaceholder:hover {
+   cursor: pointer;
+}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {AppBar, Box, IconButton, Toolbar} from "@mui/material";
+import {AppBar, IconButton, Stack, Toolbar, useMediaQuery} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {ExpandMore,} from "@mui/icons-material";
 import {logout, selectLoggedIn, selectLoggedUserId} from "../loginRegister/loginSlice";
@@ -10,7 +10,7 @@ import ProfileMenu from "./menu";
 import {NavBar} from "./navigate/navigate";
 import {useHandleGraphQLError} from "../../utils";
 import {ProfileAvatar} from "../avatar/profileAvatar";
-import {SearchBar} from "./search/searchbar";
+import {SearchBar, SearchIcon as SearchButton} from "./search/searchbar";
 import {useGetLoginUserBasicQuery} from "../../gql/gql";
 import {AnchorElState} from "./types";
 
@@ -20,6 +20,8 @@ function TopBar() {
     const dispatch = useDispatch();
     const loginUserId = useSelector(selectLoggedUserId);
     const isLoggedIn = useSelector(selectLoggedIn);
+    const desktop = useMediaQuery('(min-width:680px)');
+    const tinyScreen = !useMediaQuery('(min-width:300px)');
 
     const [anchorEl, setAnchorEl] = useState<AnchorElState>(null);
 
@@ -52,37 +54,47 @@ function TopBar() {
                     <Grid sx={{justifyContent: "flex-start", ml: 2}}>
                         <NavBar/>
                     </Grid>
+                    <Grid flexGrow={desktop ? 0 : 1} />
                     <Grid
                         xs
                         container
-                        sx={{justifyContent: "center", alignItems: "center", height: 45}}
+                        sx={{justifyContent: "flex-end", alignItems: "center", height: 45}}
                     >
-                        <SearchBar/>
+                        {desktop && <SearchBar/>}
                     </Grid>
-                    <Grid container width={120} sx={{justifyContent: "center"}}>
-                        <Box>
+                    <Grid container sx={{justifyContent: "center"}}>
+                        <Stack
+                            direction="row"
+                            justifyContent="center"
+                            alignContent="center"
+                            ml={tinyScreen ? 0 : 1}
+                            mr={tinyScreen ? 0.2 : 2}
+                        >
+                            {!desktop && <SearchButton/>}
+                            {
+                               !tinyScreen && <IconButton
+                                    sx={{width: 51, height: 51}}
+                                    color="inherit"
+                                    component={Link}
+                                    to={`/user/${loginUserId}`}
+                                    disabled={!Boolean(loginUserId)}
+                                >
+                                    <ProfileAvatar
+                                        alt={data.user.firstName + " " + data.user.lastName}
+                                        src={data?.user.profile.avatar}
+                                        sx={{width: 27, height: 27}}
+                                    />
+                                </IconButton>
+                            }
                             <IconButton
-                                size="large"
-                                color="inherit"
-                                component={Link}
-                                to={`/user/${loginUserId}`}
-                                disabled={!Boolean(loginUserId)}
-                            >
-                                <ProfileAvatar
-                                    alt={data.user.firstName + " " + data.user.lastName}
-                                    src={data?.user.profile.avatar}
-                                    sx={{width: 27, height: 27}}
-                                />
-                            </IconButton>
-                            <IconButton
-                                size="large"
+                                sx={{width: 51, height: 51}}
                                 onClick={(e) => setAnchorEl(e.currentTarget)}
                                 color="inherit"
                             >
                                 <ExpandMore color="action" sx={{fontSize: 30}}/>
                             </IconButton>
                             <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl}/>
-                        </Box>
+                        </Stack>
                     </Grid>
                 </Toolbar>
             </AppBar>

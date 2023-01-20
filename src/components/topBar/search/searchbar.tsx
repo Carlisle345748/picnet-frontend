@@ -25,7 +25,7 @@ export function SearchBar() {
 
 export function SearchIcon() {
     return (
-        <Box>
+        <Box width="50px" sx={{"&:hover": { cursor: "pointer"}}}>
             <Autocomplete/>
         </Box>)
 }

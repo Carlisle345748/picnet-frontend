@@ -13,6 +13,7 @@ export const Search = styled("form")(({theme}) => ({
     margin: 0,
     height: "100%",
     width: "100%",
+    marginLeft: 5,
 }));
 
 export function SearchBar() {

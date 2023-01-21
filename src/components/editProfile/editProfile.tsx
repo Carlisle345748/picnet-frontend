@@ -14,7 +14,7 @@ type Inputs = {
 }
 
 
-export const EditProfile = function () {
+export default function EditProfile() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const loggedInUser = useAppSelector(selectLoggedInUser);

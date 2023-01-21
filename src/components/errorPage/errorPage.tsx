@@ -29,7 +29,7 @@ function ErrorData(error: { status?: number }) {
 }
 
 
-export function ErrorPage() {
+export default function ErrorPage() {
     const navigate = useNavigate();
     const isLoggedIn = useSelector(selectLoggedIn)
     const errorResponse = useRouteError();

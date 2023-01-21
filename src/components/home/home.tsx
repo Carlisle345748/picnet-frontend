@@ -7,7 +7,7 @@ import {useBottomScrollListener} from "react-bottom-scroll-listener";
 import {useGetFeedQuery} from "../../gql/gql";
 
 
-export const Home = function () {
+export default function Home() {
     const loggedInUserId = useSelector(selectLoggedUserId);
     const {data, error, fetchMore} = useGetFeedQuery({
         variables: {userId: loggedInUserId, first: 10}

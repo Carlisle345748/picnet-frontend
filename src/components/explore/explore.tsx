@@ -51,7 +51,7 @@ function GetImageWidth() {
     return Math.min(Math.max(Math.round(window.innerWidth * 0.44), 120), 236)
 }
 
-export const Explore = function () {
+export default function Explore() {
     const [imageWidth, setImageWidth] = useState(GetImageWidth());
     const {data, error, fetchMore} = useGetAllPhotosQuery({variables: {first: 25}})
     const [modal, setModal] = useState<ModalState>({open: false, photoId: null});

@@ -30,7 +30,7 @@ type CreatePostProp = {
     loading: boolean
 }
 
-export const CreatPost = () => {
+export default function CreatePost() {
     const theme = useTheme();
     const navigate = useNavigate();
     const methods = useForm<Inputs>();

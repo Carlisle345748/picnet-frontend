@@ -17,7 +17,7 @@ const valueToCategory = new Map([
 ])
 
 
-export const SearchResult = () => {
+export default function SearchResult() {
     const [param, setParam] = useSearchParams();
     const [value, setValue] = useState<number>(categoryToValue.get(param.get("category") ?? "") ?? -1);
     const handleChange = async (_event: React.SyntheticEvent, newValue: number) => {

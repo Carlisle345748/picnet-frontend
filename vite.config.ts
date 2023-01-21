@@ -6,7 +6,15 @@ import {visualizer} from "rollup-plugin-visualizer";
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react(), codegen(), visualizer() as PluginOption],
-    base: "https://d1mwzc9v8ocr0h.cloudfront.net/static/",
+    experimental: {
+        renderBuiltUrl(filename, {hostType}) {
+            if (hostType === "js" || hostType === "css") {
+                return "https://d1mwzc9v8ocr0h.cloudfront.net/static/" + filename
+            } else {
+                return {relative: true}
+            }
+        }
+    },
     build: {
         chunkSizeWarningLimit: 1000
     },

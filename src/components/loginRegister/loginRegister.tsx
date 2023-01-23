@@ -7,22 +7,18 @@ import {Stack} from "@mui/material";
 import {SignIn} from "./signIn";
 import {useState} from "react";
 import {SignUp} from "./signUp";
-import {useHandleGraphQLError} from "../../utils";
-import {useGetBackgroundImageQuery} from "../../gql/gql";
+import backgroundImageUrl from "../../assets/background.png"
 
-const theme = createTheme();
 
 export default function LoginRegister() {
-    const {data, error} = useGetBackgroundImageQuery();
+    const theme = createTheme();
     const [page, setPage] = useState('signIn');
-    useHandleGraphQLError([error]);
 
     return (
-        !data ? <></> :
         <ThemeProvider theme={theme}>
             <Grid container component="main" justifyContent="center" alignItems="center" sx={{
                 height: '100vh',
-                backgroundImage: `url(${data.backgroundImage})`,
+                backgroundImage: `url(${backgroundImageUrl})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',

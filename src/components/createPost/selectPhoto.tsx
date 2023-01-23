@@ -136,7 +136,12 @@ export const SelectPhoto = ({width, height}: { width?: number | string, height: 
                 type="file"
                 id='upload-photo'
                 style={{display: "none"}}
-                {...register("photo", {required: "You need to select a photo"})}
+                {...register("photo", {
+                    validate: (value: FileList) => {
+                        if (value.length === 0) return "You need to select a photo";
+                        return true;
+                    }
+                })}
             />
             {photo?.length > 0
                 ? <Photo height={height} photo={photo[0]}/>

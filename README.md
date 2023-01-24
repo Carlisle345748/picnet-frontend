@@ -4,4 +4,4 @@
 - Website: [picnet.me](https://picnet.me)
 - Backend: https://github.com/Carlisle345748/picnet
 
-- <img src="https://d1mwzc9v8ocr0h.cloudfront.net/static/github-demo.jpeg" alt="demo">
+<img src="https://d1mwzc9v8ocr0h.cloudfront.net/static/github-demo.jpeg" alt="demo">

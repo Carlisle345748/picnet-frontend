@@ -36,8 +36,10 @@ export const UserInfo = ({photo, setModal}: UserInfoProp) => {
                 />
             </ListItemAvatar>
             <ListItemText
+                sx={{paddingRight: 13}}
                 primary={
                     <Typography
+                        noWrap
                         component={RouterLink}
                         to={"/user/" + photo.user.id}
                         sx={{fontWeight: 'medium', textDecoration: 'none'}}

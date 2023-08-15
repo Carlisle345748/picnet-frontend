@@ -132,7 +132,7 @@ export const SignIn = ({setPage}: { setPage: React.Dispatch<React.SetStateAction
                     <Typography component='span'
                                 align='center'
                                 sx={{mt: 1, mb: 1, color: "black", fontWeight: "medium"}}>
-                        Continue as Demo User
+                        Continue as Guest User
                     </Typography>
                 </Stack>
                 <Typography

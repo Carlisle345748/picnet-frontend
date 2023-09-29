@@ -27,6 +27,7 @@
     "@types/http-errors": "^2.0.1",
     "@types/js-cookie": "^3.0.2",
     "@types/loadable__component": "^5.13.4",
+    "@vercel/analytics": "^1.0.2",
     "algoliasearch": "^4.14.3",
     "apollo-upload-client": "^17.0.0",
     "autosuggest-highlight": "^3.3.4",

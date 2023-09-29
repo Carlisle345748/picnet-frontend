@@ -14,6 +14,7 @@ import {createUploadLink} from "apollo-upload-client"
 import {SnackbarProvider} from "notistack"
 import appstore from './store/store'
 import {AlgoliaProvider} from "./algolia";
+import { Analytics } from '@vercel/analytics/react';
 
 const httpLink = createUploadLink({uri: "/graphql"});
 
@@ -69,6 +70,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <SnackbarProvider>
                         <AlgoliaProvider>
                             <App/>
+                            <Analytics />
                         </AlgoliaProvider>
                     </SnackbarProvider>
                 </ApolloProvider>

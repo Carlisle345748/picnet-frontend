@@ -24,6 +24,7 @@ export type CommentType = Node & {
   __typename?: 'CommentType';
   comment: Scalars['String'];
   dateTime: Scalars['DateTime'];
+  /** The Globally Unique ID of this object */
   id: Scalars['GlobalID'];
   photo: PhotoType;
   user: UserType;
@@ -36,7 +37,7 @@ export type CommentTypeConnection = {
   edges: Array<CommentTypeEdge>;
   /** Pagination data for this connection */
   pageInfo: PageInfo;
-  /** Total quantity of existing nodes */
+  /** Total quantity of existing nodes. */
   totalCount?: Maybe<Scalars['Int']>;
 };
 
@@ -49,13 +50,11 @@ export type CommentTypeEdge = {
   node: CommentType;
 };
 
-/** Input data for `createComment` mutation */
 export type CreateCommentInput = {
   comment: Scalars['String'];
   photoId: Scalars['GlobalID'];
 };
 
-/** Input data for `createUser` mutation */
 export type CreateUserInput = {
   description?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
@@ -65,12 +64,10 @@ export type CreateUserInput = {
   username: Scalars['String'];
 };
 
-/** Input data for `deleteComment` mutation */
 export type DeleteCommentInput = {
   id: Scalars['GlobalID'];
 };
 
-/** Input data for `deletePhoto` mutation */
 export type DeletePhotoInput = {
   id: Scalars['GlobalID'];
 };
@@ -86,6 +83,8 @@ export type DjangoImageType = {
 };
 
 export type FeedFilter = {
+  AND?: InputMaybe<FeedFilter>;
+  OR?: InputMaybe<FeedFilter>;
   user?: InputMaybe<NodeInput>;
 };
 
@@ -96,6 +95,7 @@ export type FeedOrder = {
 export type FeedType = Node & {
   __typename?: 'FeedType';
   dateTime: Scalars['DateTime'];
+  /** The Globally Unique ID of this object */
   id: Scalars['GlobalID'];
   photo: PhotoType;
   user: UserType;
@@ -108,7 +108,7 @@ export type FeedTypeConnection = {
   edges: Array<FeedTypeEdge>;
   /** Pagination data for this connection */
   pageInfo: PageInfo;
-  /** Total quantity of existing nodes */
+  /** Total quantity of existing nodes. */
   totalCount?: Maybe<Scalars['Int']>;
 };
 
@@ -136,6 +136,23 @@ export type GlobalIdFilterLookup = {
   isNull?: InputMaybe<Scalars['Boolean']>;
   lt?: InputMaybe<Scalars['GlobalID']>;
   lte?: InputMaybe<Scalars['GlobalID']>;
+  nContains?: InputMaybe<Scalars['GlobalID']>;
+  nEndsWith?: InputMaybe<Scalars['GlobalID']>;
+  nExact?: InputMaybe<Scalars['GlobalID']>;
+  nGt?: InputMaybe<Scalars['GlobalID']>;
+  nGte?: InputMaybe<Scalars['GlobalID']>;
+  nIContains?: InputMaybe<Scalars['GlobalID']>;
+  nIEndsWith?: InputMaybe<Scalars['GlobalID']>;
+  nIExact?: InputMaybe<Scalars['GlobalID']>;
+  nIRegex?: InputMaybe<Scalars['String']>;
+  nIStartsWith?: InputMaybe<Scalars['GlobalID']>;
+  nInList?: InputMaybe<Array<Scalars['GlobalID']>>;
+  nIsNull?: InputMaybe<Scalars['Boolean']>;
+  nLt?: InputMaybe<Scalars['GlobalID']>;
+  nLte?: InputMaybe<Scalars['GlobalID']>;
+  nRange?: InputMaybe<Array<Scalars['GlobalID']>>;
+  nRegex?: InputMaybe<Scalars['String']>;
+  nStartsWith?: InputMaybe<Scalars['GlobalID']>;
   range?: InputMaybe<Array<Scalars['GlobalID']>>;
   regex?: InputMaybe<Scalars['String']>;
   startsWith?: InputMaybe<Scalars['GlobalID']>;
@@ -250,6 +267,8 @@ export type PageInfo = {
 };
 
 export type PhotoFiler = {
+  AND?: InputMaybe<PhotoFiler>;
+  OR?: InputMaybe<PhotoFiler>;
   user?: InputMaybe<NodeInput>;
 };
 
@@ -259,6 +278,7 @@ export type PhotoOrder = {
 
 export type PhotoTagType = Node & {
   __typename?: 'PhotoTagType';
+  /** The Globally Unique ID of this object */
   id: Scalars['GlobalID'];
   tag: Scalars['String'];
 };
@@ -270,7 +290,7 @@ export type PhotoTagTypeConnection = {
   edges: Array<PhotoTagTypeEdge>;
   /** Pagination data for this connection */
   pageInfo: PageInfo;
-  /** Total quantity of existing nodes */
+  /** Total quantity of existing nodes. */
   totalCount?: Maybe<Scalars['Int']>;
 };
 
@@ -289,6 +309,7 @@ export type PhotoType = Node & {
   dateTime: Scalars['DateTime'];
   description: Scalars['String'];
   file: DjangoImageType;
+  /** The Globally Unique ID of this object */
   id: Scalars['GlobalID'];
   isLike: Scalars['Boolean'];
   location: Scalars['String'];
@@ -319,6 +340,7 @@ export type PhotoTypeTagsArgs = {
 export type PhotoTypeUserLikeArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
+  filters?: InputMaybe<UserFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
@@ -330,7 +352,7 @@ export type PhotoTypeConnection = {
   edges: Array<PhotoTypeEdge>;
   /** Pagination data for this connection */
   pageInfo: PageInfo;
-  /** Total quantity of existing nodes */
+  /** Total quantity of existing nodes. */
   totalCount?: Maybe<Scalars['Int']>;
 };
 
@@ -349,6 +371,7 @@ export type ProfileType = Node & {
   description: Scalars['String'];
   follower: UserTypeConnection;
   following: UserTypeConnection;
+  /** The Globally Unique ID of this object */
   id: Scalars['GlobalID'];
   isFollowing: Scalars['Boolean'];
   user: UserType;
@@ -358,6 +381,7 @@ export type ProfileType = Node & {
 export type ProfileTypeFollowerArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
+  filters?: InputMaybe<UserFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
@@ -366,6 +390,7 @@ export type ProfileTypeFollowerArgs = {
 export type ProfileTypeFollowingArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
+  filters?: InputMaybe<UserFilter>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
@@ -377,7 +402,7 @@ export type ProfileTypeConnection = {
   edges: Array<ProfileTypeEdge>;
   /** Pagination data for this connection */
   pageInfo: PageInfo;
-  /** Total quantity of existing nodes */
+  /** Total quantity of existing nodes. */
   totalCount?: Maybe<Scalars['Int']>;
 };
 
@@ -489,12 +514,28 @@ export type StrFilterLookup = {
   isNull?: InputMaybe<Scalars['Boolean']>;
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
+  nContains?: InputMaybe<Scalars['String']>;
+  nEndsWith?: InputMaybe<Scalars['String']>;
+  nExact?: InputMaybe<Scalars['String']>;
+  nGt?: InputMaybe<Scalars['String']>;
+  nGte?: InputMaybe<Scalars['String']>;
+  nIContains?: InputMaybe<Scalars['String']>;
+  nIEndsWith?: InputMaybe<Scalars['String']>;
+  nIExact?: InputMaybe<Scalars['String']>;
+  nIRegex?: InputMaybe<Scalars['String']>;
+  nIStartsWith?: InputMaybe<Scalars['String']>;
+  nInList?: InputMaybe<Array<Scalars['String']>>;
+  nIsNull?: InputMaybe<Scalars['Boolean']>;
+  nLt?: InputMaybe<Scalars['String']>;
+  nLte?: InputMaybe<Scalars['String']>;
+  nRange?: InputMaybe<Array<Scalars['String']>>;
+  nRegex?: InputMaybe<Scalars['String']>;
+  nStartsWith?: InputMaybe<Scalars['String']>;
   range?: InputMaybe<Array<Scalars['String']>>;
   regex?: InputMaybe<Scalars['String']>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
-/** Input data for `updateFollower` mutation */
 export type UpdateFollowerInput = {
   follow: Scalars['Boolean'];
   userId: Scalars['GlobalID'];
@@ -506,25 +547,21 @@ export type UpdateFollowerResult = {
   user: UserType;
 };
 
-/** Input data for `updatePhotoLike` mutation */
 export type UpdatePhotoLikeInput = {
   like: Scalars['Boolean'];
   photoId: Scalars['GlobalID'];
 };
 
-/** Input data for `updateProfile` mutation */
 export type UpdateProfileInput = {
   description: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
 };
 
-/** Input data for `uploadAvatar` mutation */
 export type UploadAvatarInput = {
   avatar: Scalars['Upload'];
 };
 
-/** Input data for `uploadPhoto` mutation */
 export type UploadPhotoInput = {
   description: Scalars['String'];
   location: Scalars['String'];
@@ -534,8 +571,9 @@ export type UploadPhotoInput = {
 };
 
 export type UserFilter = {
+  AND?: InputMaybe<UserFilter>;
+  OR?: InputMaybe<UserFilter>;
   id?: InputMaybe<GlobalIdFilterLookup>;
-  /** Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only. */
   username?: InputMaybe<StrFilterLookup>;
 };
 
@@ -543,11 +581,11 @@ export type UserType = Node & {
   __typename?: 'UserType';
   email: Scalars['String'];
   firstName: Scalars['String'];
+  /** The Globally Unique ID of this object */
   id: Scalars['GlobalID'];
   lastName: Scalars['String'];
   photos: PhotoTypeConnection;
   profile: ProfileType;
-  /** Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only. */
   username: Scalars['String'];
 };
 
@@ -568,7 +606,7 @@ export type UserTypeConnection = {
   edges: Array<UserTypeEdge>;
   /** Pagination data for this connection */
   pageInfo: PageInfo;
-  /** Total quantity of existing nodes */
+  /** Total quantity of existing nodes. */
   totalCount?: Maybe<Scalars['Int']>;
 };
 

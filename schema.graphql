@@ -1,107 +1,106 @@
-"""Can only be resolved by authenticated users."""
-directive @isAuthenticated on FIELD_DEFINITION
+directive @isAuthenticated repeatable on FIELD_DEFINITION
 
 type CommentType implements Node {
-    id: GlobalID!
-    comment: String!
-    dateTime: DateTime!
-    photo: PhotoType!
-    user: UserType!
+  """The Globally Unique ID of this object"""
+  id: GlobalID!
+  comment: String!
+  dateTime: DateTime!
+  photo: PhotoType!
+  user: UserType!
 }
 
 """A connection to a list of items."""
 type CommentTypeConnection {
-    """Pagination data for this connection"""
-    pageInfo: PageInfo!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
 
-    """Contains the nodes in this connection"""
-    edges: [CommentTypeEdge!]!
+  """Contains the nodes in this connection"""
+  edges: [CommentTypeEdge!]!
 
-    """Total quantity of existing nodes"""
-    totalCount: Int
+  """Total quantity of existing nodes."""
+  totalCount: Int
 }
 
 """An edge in a connection."""
 type CommentTypeEdge {
-    """A cursor for use in pagination"""
-    cursor: String!
+  """A cursor for use in pagination"""
+  cursor: String!
 
-    """The item at the end of the edge"""
-    node: CommentType!
+  """The item at the end of the edge"""
+  node: CommentType!
 }
 
-"""Input data for `createComment` mutation"""
 input CreateCommentInput {
-    photoId: GlobalID!
-    comment: String!
+  photoId: GlobalID!
+  comment: String!
 }
 
-"""Input data for `createUser` mutation"""
 input CreateUserInput {
-    firstName: String!
-    lastName: String!
-    username: String!
-    password: String!
-    email: String = ""
-    description: String = ""
+  firstName: String!
+  lastName: String!
+  username: String!
+  password: String!
+  email: String = ""
+  description: String = ""
 }
 
 """Date with time (isoformat)"""
 scalar DateTime
 
-"""Input data for `deleteComment` mutation"""
 input DeleteCommentInput {
-    id: GlobalID!
+  id: GlobalID!
 }
 
-"""Input data for `deletePhoto` mutation"""
 input DeletePhotoInput {
-    id: GlobalID!
+  id: GlobalID!
 }
 
 type DjangoImageType {
-    name: String!
-    path: String!
-    size: Int!
-    url: String!
-    width: Int!
-    height: Int!
+  name: String!
+  path: String!
+  size: Int!
+  url: String!
+  width: Int!
+  height: Int!
 }
 
 input FeedFilter {
-    user: NodeInput
+  user: NodeInput
+  AND: FeedFilter
+  OR: FeedFilter
 }
 
 input FeedOrder {
-    dateTime: Ordering
+  dateTime: Ordering
 }
 
 type FeedType implements Node {
-    id: GlobalID!
-    user: UserType!
-    photo: PhotoType!
-    dateTime: DateTime!
+  """The Globally Unique ID of this object"""
+  id: GlobalID!
+  user: UserType!
+  photo: PhotoType!
+  dateTime: DateTime!
 }
 
 """A connection to a list of items."""
 type FeedTypeConnection {
-    """Pagination data for this connection"""
-    pageInfo: PageInfo!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
 
-    """Contains the nodes in this connection"""
-    edges: [FeedTypeEdge!]!
+  """Contains the nodes in this connection"""
+  edges: [FeedTypeEdge!]!
 
-    """Total quantity of existing nodes"""
-    totalCount: Int
+  """Total quantity of existing nodes."""
+  totalCount: Int
 }
 
 """An edge in a connection."""
 type FeedTypeEdge {
-    """A cursor for use in pagination"""
-    cursor: String!
+  """A cursor for use in pagination"""
+  cursor: String!
 
-    """The item at the end of the edge"""
-    node: FeedType!
+  """The item at the end of the edge"""
+  node: FeedType!
 }
 
 """
@@ -110,458 +109,501 @@ The `ID` scalar type represents a unique identifier, often used to refetch an ob
 scalar GlobalID @specifiedBy(url: "https://relay.dev/graphql/objectidentification.htm")
 
 input GlobalIDFilterLookup {
-    exact: GlobalID
-    iExact: GlobalID
-    contains: GlobalID
-    iContains: GlobalID
-    inList: [GlobalID!]
-    gt: GlobalID
-    gte: GlobalID
-    lt: GlobalID
-    lte: GlobalID
-    startsWith: GlobalID
-    iStartsWith: GlobalID
-    endsWith: GlobalID
-    iEndsWith: GlobalID
-    range: [GlobalID!]
-    isNull: Boolean
-    regex: String
-    iRegex: String
+  exact: GlobalID
+  iExact: GlobalID
+  contains: GlobalID
+  iContains: GlobalID
+  inList: [GlobalID!]
+  gt: GlobalID
+  gte: GlobalID
+  lt: GlobalID
+  lte: GlobalID
+  startsWith: GlobalID
+  iStartsWith: GlobalID
+  endsWith: GlobalID
+  iEndsWith: GlobalID
+  range: [GlobalID!]
+  isNull: Boolean
+  regex: String
+  iRegex: String
+  nExact: GlobalID
+  nIExact: GlobalID
+  nContains: GlobalID
+  nIContains: GlobalID
+  nInList: [GlobalID!]
+  nGt: GlobalID
+  nGte: GlobalID
+  nLt: GlobalID
+  nLte: GlobalID
+  nStartsWith: GlobalID
+  nIStartsWith: GlobalID
+  nEndsWith: GlobalID
+  nIEndsWith: GlobalID
+  nRange: [GlobalID!]
+  nIsNull: Boolean
+  nRegex: String
+  nIRegex: String
 }
 
 type HotTag {
-    tag: String!
-    count: Int!
+  tag: String!
+  count: Int!
 }
 
 type Location {
-    fullAddress: String!
-    main: String!
-    secondary: String!
+  fullAddress: String!
+  main: String!
+  secondary: String!
 }
 
 type Mutation {
-    logout: Boolean!
-    login(username: String!, password: String!): UserType!
-    createUser(
-        """Input data for `createUser` mutation"""
-        input: CreateUserInput!
-    ): UserType!
-    createComment(
-        """Input data for `createComment` mutation"""
-        input: CreateCommentInput!
-    ): CommentType!
-    updateProfile(
-        """Input data for `updateProfile` mutation"""
-        input: UpdateProfileInput!
-    ): UserType!
-    updatePhotoLike(
-        """Input data for `updatePhotoLike` mutation"""
-        input: UpdatePhotoLikeInput!
-    ): PhotoType!
-    updateFollower(
-        """Input data for `updateFollower` mutation"""
-        input: UpdateFollowerInput!
-    ): UpdateFollowerResult!
-    deletePhoto(
-        """Input data for `deletePhoto` mutation"""
-        input: DeletePhotoInput!
-    ): PhotoType!
-    deleteComment(
-        """Input data for `deleteComment` mutation"""
-        input: DeleteCommentInput!
-    ): CommentType!
-    uploadAvatar(
-        """Input data for `uploadAvatar` mutation"""
-        input: UploadAvatarInput!
-    ): ProfileType!
-    uploadPhoto(
-        """Input data for `uploadPhoto` mutation"""
-        input: UploadPhotoInput!
-    ): PhotoType!
+  logout: Boolean!
+  login(username: String!, password: String!): UserType!
+  createUser(
+    """Input data for `createUser` mutation"""
+    input: CreateUserInput!
+  ): UserType! @isAuthenticated
+  createComment(
+    """Input data for `createComment` mutation"""
+    input: CreateCommentInput!
+  ): CommentType! @isAuthenticated
+  updateProfile(
+    """Input data for `updateProfile` mutation"""
+    input: UpdateProfileInput!
+  ): UserType! @isAuthenticated
+  updatePhotoLike(
+    """Input data for `updatePhotoLike` mutation"""
+    input: UpdatePhotoLikeInput!
+  ): PhotoType! @isAuthenticated
+  updateFollower(
+    """Input data for `updateFollower` mutation"""
+    input: UpdateFollowerInput!
+  ): UpdateFollowerResult! @isAuthenticated
+  deletePhoto(
+    """Input data for `deletePhoto` mutation"""
+    input: DeletePhotoInput!
+  ): PhotoType! @isAuthenticated
+  deleteComment(
+    """Input data for `deleteComment` mutation"""
+    input: DeleteCommentInput!
+  ): CommentType! @isAuthenticated
+  uploadAvatar(
+    """Input data for `uploadAvatar` mutation"""
+    input: UploadAvatarInput!
+  ): ProfileType! @isAuthenticated
+  uploadPhoto(
+    """Input data for `uploadPhoto` mutation"""
+    input: UploadPhotoInput!
+  ): PhotoType! @isAuthenticated
 }
 
 """An object with a Globally Unique ID"""
 interface Node {
-    """The Globally Unique ID of this object"""
-    id: GlobalID!
+  """The Globally Unique ID of this object"""
+  id: GlobalID!
 }
 
 """Input of an object that implements the `Node` interface."""
 input NodeInput {
-    id: GlobalID!
+  id: GlobalID!
 }
 
 enum Ordering {
-    ASC
-    DESC
+  ASC
+  DESC
 }
 
 """Information to aid in pagination."""
 type PageInfo {
-    """When paginating forwards, are there more items?"""
-    hasNextPage: Boolean!
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
 
-    """When paginating backwards, are there more items?"""
-    hasPreviousPage: Boolean!
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
 
-    """When paginating backwards, the cursor to continue."""
-    startCursor: String
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
 
-    """When paginating forwards, the cursor to continue."""
-    endCursor: String
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
 }
 
 input PhotoFiler {
-    user: NodeInput
+  user: NodeInput
+  AND: PhotoFiler
+  OR: PhotoFiler
 }
 
 input PhotoOrder {
-    dateTime: Ordering
+  dateTime: Ordering
 }
 
 type PhotoTagType implements Node {
-    id: GlobalID!
-    tag: String!
+  """The Globally Unique ID of this object"""
+  id: GlobalID!
+  tag: String!
 }
 
 """A connection to a list of items."""
 type PhotoTagTypeConnection {
-    """Pagination data for this connection"""
-    pageInfo: PageInfo!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
 
-    """Contains the nodes in this connection"""
-    edges: [PhotoTagTypeEdge!]!
+  """Contains the nodes in this connection"""
+  edges: [PhotoTagTypeEdge!]!
 
-    """Total quantity of existing nodes"""
-    totalCount: Int
+  """Total quantity of existing nodes."""
+  totalCount: Int
 }
 
 """An edge in a connection."""
 type PhotoTagTypeEdge {
-    """A cursor for use in pagination"""
-    cursor: String!
+  """A cursor for use in pagination"""
+  cursor: String!
 
-    """The item at the end of the edge"""
-    node: PhotoTagType!
+  """The item at the end of the edge"""
+  node: PhotoTagType!
 }
 
 type PhotoType implements Node {
-    id: GlobalID!
-    file: DjangoImageType!
-    ratio: Float!
-    dateTime: DateTime!
-    user: UserType!
-    userLike(
-        """Returns the items in the list that come before the specified cursor."""
-        before: String = null
+  """The Globally Unique ID of this object"""
+  id: GlobalID!
+  file: DjangoImageType!
+  ratio: Float!
+  dateTime: DateTime!
+  user: UserType!
+  userLike(
+    filters: UserFilter
 
-        """Returns the items in the list that come after the specified cursor."""
-        after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
 
-        """Returns the first n items from the list."""
-        first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        last: Int = null
-    ): UserTypeConnection!
-    description: String!
-    tags(
-        """Returns the items in the list that come before the specified cursor."""
-        before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        after: String = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+  ): UserTypeConnection!
+  description: String!
+  tags(
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
 
-        """Returns the first n items from the list."""
-        first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        last: Int = null
-    ): PhotoTagTypeConnection!
-    location: String!
-    comments(
-        """Returns the items in the list that come before the specified cursor."""
-        before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        after: String = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+  ): PhotoTagTypeConnection!
+  location: String!
+  comments(
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
 
-        """Returns the first n items from the list."""
-        first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        last: Int = null
-    ): CommentTypeConnection!
-    isLike: Boolean!
-    url: String!
+    """Returns the first n items from the list."""
+    first: Int = null
+
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+  ): CommentTypeConnection!
+  url: String!
+  isLike: Boolean!
 }
 
 """A connection to a list of items."""
 type PhotoTypeConnection {
-    """Pagination data for this connection"""
-    pageInfo: PageInfo!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
 
-    """Contains the nodes in this connection"""
-    edges: [PhotoTypeEdge!]!
+  """Contains the nodes in this connection"""
+  edges: [PhotoTypeEdge!]!
 
-    """Total quantity of existing nodes"""
-    totalCount: Int
+  """Total quantity of existing nodes."""
+  totalCount: Int
 }
 
 """An edge in a connection."""
 type PhotoTypeEdge {
-    """A cursor for use in pagination"""
-    cursor: String!
+  """A cursor for use in pagination"""
+  cursor: String!
 
-    """The item at the end of the edge"""
-    node: PhotoType!
+  """The item at the end of the edge"""
+  node: PhotoType!
 }
 
 type ProfileType implements Node {
-    id: GlobalID!
-    user: UserType!
-    description: String!
-    follower(
-        """Returns the items in the list that come before the specified cursor."""
-        before: String = null
+  """The Globally Unique ID of this object"""
+  id: GlobalID!
+  user: UserType!
+  description: String!
+  follower(
+    filters: UserFilter
 
-        """Returns the items in the list that come after the specified cursor."""
-        after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
 
-        """Returns the first n items from the list."""
-        first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        last: Int = null
-    ): UserTypeConnection!
-    following(
-        """Returns the items in the list that come before the specified cursor."""
-        before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        after: String = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+  ): UserTypeConnection!
+  following(
+    filters: UserFilter
 
-        """Returns the first n items from the list."""
-        first: Int = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        last: Int = null
-    ): UserTypeConnection!
-    avatar: String!
-    isFollowing: Boolean!
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+
+    """Returns the first n items from the list."""
+    first: Int = null
+
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+  ): UserTypeConnection!
+  avatar: String!
+  isFollowing: Boolean!
 }
 
 """A connection to a list of items."""
 type ProfileTypeConnection {
-    """Pagination data for this connection"""
-    pageInfo: PageInfo!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
 
-    """Contains the nodes in this connection"""
-    edges: [ProfileTypeEdge!]!
+  """Contains the nodes in this connection"""
+  edges: [ProfileTypeEdge!]!
 
-    """Total quantity of existing nodes"""
-    totalCount: Int
+  """Total quantity of existing nodes."""
+  totalCount: Int
 }
 
 """An edge in a connection."""
 type ProfileTypeEdge {
-    """A cursor for use in pagination"""
-    cursor: String!
+  """A cursor for use in pagination"""
+  cursor: String!
 
-    """The item at the end of the edge"""
-    node: ProfileType!
+  """The item at the end of the edge"""
+  node: ProfileType!
 }
 
 type Query {
-    user(
-        """The ID of the object."""
-        id: GlobalID!
-    ): UserType @isAuthenticated
-    users(
-        """Returns the items in the list that come before the specified cursor."""
-        before: String = null
+  user(
+    """The ID of the object."""
+    id: GlobalID!
+  ): UserType @isAuthenticated
+  users(
+    filters: UserFilter
 
-        """Returns the items in the list that come after the specified cursor."""
-        after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
 
-        """Returns the first n items from the list."""
-        first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        last: Int = null
-        filters: UserFilter
-    ): UserTypeConnection! @isAuthenticated
-    profile(
-        """The ID of the object."""
-        id: GlobalID!
-    ): Node
-    profiles(
-        """Returns the items in the list that come before the specified cursor."""
-        before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        after: String = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+  ): UserTypeConnection! @isAuthenticated
+  profile(
+    """The ID of the object."""
+    id: GlobalID!
+  ): Node @isAuthenticated
+  profiles(
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
 
-        """Returns the first n items from the list."""
-        first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        last: Int = null
-    ): ProfileTypeConnection!
-    photo(
-        """The ID of the object."""
-        id: GlobalID!
-    ): PhotoType
-    photos(
-        """Returns the items in the list that come before the specified cursor."""
-        before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        after: String = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+  ): ProfileTypeConnection! @isAuthenticated
+  photo(
+    """The ID of the object."""
+    id: GlobalID!
+  ): PhotoType @isAuthenticated
+  photos(
+    filters: PhotoFiler
+    order: PhotoOrder
 
-        """Returns the first n items from the list."""
-        first: Int = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        last: Int = null
-        filters: PhotoFiler
-        order: PhotoOrder
-    ): PhotoTypeConnection!
-    comment(
-        """The ID of the object."""
-        id: GlobalID!
-    ): CommentType
-    feeds(
-        """Returns the items in the list that come before the specified cursor."""
-        before: String = null
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        after: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
 
-        """Returns the first n items from the list."""
-        first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+  ): PhotoTypeConnection! @isAuthenticated
+  comment(
+    """The ID of the object."""
+    id: GlobalID!
+  ): CommentType @isAuthenticated
+  feeds(
+    filters: FeedFilter
+    order: FeedOrder
 
-        """Returns the items in the list that come after the specified cursor."""
-        last: Int = null
-        filters: FeedFilter
-        order: FeedOrder
-    ): FeedTypeConnection!
-    backgroundImage: String!
-    topTags(topN: Int = 5, text: String): [HotTag!]! @isAuthenticated
-    locationSuggestions(text: String!, topN: Int = 5): [Location!]! @isAuthenticated
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+
+    """Returns the first n items from the list."""
+    first: Int = null
+
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+  ): FeedTypeConnection! @isAuthenticated
+  backgroundImage: String!
+  topTags(topN: Int = 5, text: String): [HotTag!]! @isAuthenticated
+  locationSuggestions(text: String!, topN: Int = 5): [Location!]! @isAuthenticated
 }
 
 input StrFilterLookup {
-    exact: String
-    iExact: String
-    contains: String
-    iContains: String
-    inList: [String!]
-    gt: String
-    gte: String
-    lt: String
-    lte: String
-    startsWith: String
-    iStartsWith: String
-    endsWith: String
-    iEndsWith: String
-    range: [String!]
-    isNull: Boolean
-    regex: String
-    iRegex: String
+  exact: String
+  iExact: String
+  contains: String
+  iContains: String
+  inList: [String!]
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  startsWith: String
+  iStartsWith: String
+  endsWith: String
+  iEndsWith: String
+  range: [String!]
+  isNull: Boolean
+  regex: String
+  iRegex: String
+  nExact: String
+  nIExact: String
+  nContains: String
+  nIContains: String
+  nInList: [String!]
+  nGt: String
+  nGte: String
+  nLt: String
+  nLte: String
+  nStartsWith: String
+  nIStartsWith: String
+  nEndsWith: String
+  nIEndsWith: String
+  nRange: [String!]
+  nIsNull: Boolean
+  nRegex: String
+  nIRegex: String
 }
 
-"""Input data for `updateFollower` mutation"""
 input UpdateFollowerInput {
-    userId: GlobalID!
-    follow: Boolean!
+  userId: GlobalID!
+  follow: Boolean!
 }
 
 type UpdateFollowerResult {
-    user: UserType!
-    followUser: UserType!
+  user: UserType!
+  followUser: UserType!
 }
 
-"""Input data for `updatePhotoLike` mutation"""
 input UpdatePhotoLikeInput {
-    photoId: GlobalID!
-    like: Boolean!
+  photoId: GlobalID!
+  like: Boolean!
 }
 
-"""Input data for `updateProfile` mutation"""
 input UpdateProfileInput {
-    firstName: String!
-    lastName: String!
-    description: String!
+  firstName: String!
+  lastName: String!
+  description: String!
 }
 
 scalar Upload
 
-"""Input data for `uploadAvatar` mutation"""
 input UploadAvatarInput {
-    avatar: Upload!
+  avatar: Upload!
 }
 
-"""Input data for `uploadPhoto` mutation"""
 input UploadPhotoInput {
-    photo: Upload!
-    description: String!
-    location: String!
-    tags: [String!]!
-    ratio: Float!
+  photo: Upload!
+  description: String!
+  location: String!
+  tags: [String!]!
+  ratio: Float!
 }
 
 input UserFilter {
-    id: GlobalIDFilterLookup
-
-    """Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."""
-    username: StrFilterLookup
+  id: GlobalIDFilterLookup
+  username: StrFilterLookup
+  AND: UserFilter
+  OR: UserFilter
 }
 
 type UserType implements Node {
-    id: GlobalID!
+  """The Globally Unique ID of this object"""
+  id: GlobalID!
+  username: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  profile: ProfileType!
+  photos(
+    filters: PhotoFiler
+    order: PhotoOrder
 
-    """Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."""
-    username: String!
-    firstName: String!
-    lastName: String!
-    email: String!
-    profile: ProfileType!
-    photos(
-        """Returns the items in the list that come before the specified cursor."""
-        before: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        after: String = null
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
 
-        """Returns the first n items from the list."""
-        first: Int = null
+    """Returns the first n items from the list."""
+    first: Int = null
 
-        """Returns the items in the list that come after the specified cursor."""
-        last: Int = null
-        order: PhotoOrder
-        filters: PhotoFiler
-    ): PhotoTypeConnection!
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+  ): PhotoTypeConnection!
 }
 
 """A connection to a list of items."""
 type UserTypeConnection {
-    """Pagination data for this connection"""
-    pageInfo: PageInfo!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
 
-    """Contains the nodes in this connection"""
-    edges: [UserTypeEdge!]!
+  """Contains the nodes in this connection"""
+  edges: [UserTypeEdge!]!
 
-    """Total quantity of existing nodes"""
-    totalCount: Int
+  """Total quantity of existing nodes."""
+  totalCount: Int
 }
 
 """An edge in a connection."""
 type UserTypeEdge {
-    """A cursor for use in pagination"""
-    cursor: String!
+  """A cursor for use in pagination"""
+  cursor: String!
 
-    """The item at the end of the edge"""
-    node: UserType!
+  """The item at the end of the edge"""
+  node: UserType!
 }

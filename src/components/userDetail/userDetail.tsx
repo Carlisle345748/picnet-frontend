@@ -4,15 +4,21 @@ import BasicInfo from "./basicInfo/basicInfo";
 import PhotoList from "./photoList/photoList";
 import {useHandleGraphQLError} from "../../utils";
 import {useGetUserDetailQuery} from "../../gql/gql";
+import React from "react";
+import Spinner from "../loading/spinner";
 
 export default function UserDetail() {
     const params = useParams();
 
-    const {data, error} = useGetUserDetailQuery({
+    const {data, loading, error} = useGetUserDetailQuery({
             variables: {id: params.userId}
         }
     );
     useHandleGraphQLError([error]);
+
+    if (loading) {
+        return <Spinner/>;
+    }
 
     return (
         !data?.user ? <></> :

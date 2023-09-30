@@ -5,6 +5,7 @@ import {useBottomScrollListener} from "react-bottom-scroll-listener";
 import {PhotoDetailModal} from "../photoDetail/photoDetailModal";
 import {Gallery, ImagePin} from "./imageGallery/imageGallery"
 import {useGetAllPhotosQuery} from "../../gql/gql";
+import Spinner from "../loading/spinner";
 
 type ModalState = {
     open: boolean
@@ -53,7 +54,7 @@ function GetImageWidth() {
 
 export default function Explore() {
     const [imageWidth, setImageWidth] = useState(GetImageWidth());
-    const {data, error, fetchMore} = useGetAllPhotosQuery({variables: {first: 25}})
+    const {data, loading, error, fetchMore} = useGetAllPhotosQuery({variables: {first: 25}})
     const [modal, setModal] = useState<ModalState>({open: false, photoId: null});
     useHandleGraphQLError([error]);
 
@@ -65,7 +66,11 @@ export default function Explore() {
 
     useResizeListener(() => {
         setImageWidth(GetImageWidth());
-    }, 10)
+    }, 10);
+
+    if (loading) {
+        return <Spinner/>;
+    }
 
     return (
         !data?.photos ? <></> :

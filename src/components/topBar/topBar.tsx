@@ -48,13 +48,13 @@ function TopBar() {
 
 
     return (
-        !(isLoggedIn && data?.user) ? <></> : (
+        !(isLoggedIn) ? <></> : (
             <AppBar id={"appbar"} sx={{backgroundColor: "white", boxShadow: "none", pb: 1, pr: 0}}>
                 <Toolbar component={Grid} container disableGutters pt={2}>
                     <Grid sx={{justifyContent: "flex-start", ml: 2}}>
                         <NavBar/>
                     </Grid>
-                    <Grid flexGrow={desktop ? 0 : 1} />
+                    <Grid flexGrow={desktop ? 0 : 1}/>
                     <Grid
                         xs
                         container
@@ -72,18 +72,20 @@ function TopBar() {
                         >
                             {!desktop && <SearchButton/>}
                             {
-                               !tinyScreen && <IconButton
+                                !tinyScreen && <IconButton
                                     sx={{width: 51, height: 51}}
                                     color="inherit"
                                     component={Link}
                                     to={`/user/${loginUserId}`}
                                     disabled={!Boolean(loginUserId)}
-                                >
-                                    <ProfileAvatar
-                                        alt={data.user.firstName + " " + data.user.lastName}
-                                        src={data?.user.profile.avatar}
-                                        sx={{width: 27, height: 27}}
-                                    />
+                                >{
+                                    !data?.user ? <></> :
+                                        <ProfileAvatar
+                                            alt={(data.user.firstName + " " + data.user.lastName)}
+                                            src={data.user.profile.avatar}
+                                            sx={{width: 27, height: 27}}
+                                        />
+                                }
                                 </IconButton>
                             }
                             <IconButton
